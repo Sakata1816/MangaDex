@@ -36,7 +36,7 @@ interface MangaDexApi {
         @Query("order[name]")
         order: String? = "asc",
         @Query("includes[]")
-        includes: List<String>? = null,
+            includes: List<String>? = null,
     ): Response<AuthorListResponceDto>
 
 

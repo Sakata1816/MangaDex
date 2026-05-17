@@ -7,6 +7,7 @@ import kotlin.jvm.java
 
 
 
+
 private val gson = Gson()
 
 internal fun Response<*>.toException(): Exception {
