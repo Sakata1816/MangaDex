@@ -2,8 +2,6 @@ package com.example.dota2.domain.model.server
 
 
 data class ChapterListResponseModel(
-    val result: String?,
-    val response: String?,
     val data: List<ChapterModel>?,
 
     val limit: Int?,

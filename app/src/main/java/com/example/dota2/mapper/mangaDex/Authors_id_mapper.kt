@@ -6,8 +6,6 @@ import com.example.dota2.domain.model.server.AuthorResponceModel
 
 fun AuthorResponceDto.toModel():AuthorResponceModel {
     return AuthorResponceModel(
-        result = result,
-        response = response,
         data = data?.toModel(),
 
         limit = limit,
@@ -21,8 +19,8 @@ fun AuthorResponceDto.toModel():AuthorResponceModel {
 
 fun AuthorResponceModel.toDto(): AuthorResponceDto{
     return AuthorResponceDto(
-        result = result,
-        response = response,
+        result = null,
+        response = null,
         data = data?.toDto(),
 
         limit = limit,

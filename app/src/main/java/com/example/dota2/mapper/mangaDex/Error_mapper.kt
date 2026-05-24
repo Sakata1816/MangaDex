@@ -8,7 +8,6 @@ import com.example.dota2.domain.model.server.ErrorResponseModel
 
 fun ErrorResponseDto.toModel(): ErrorResponseModel{
     return ErrorResponseModel(
-        result = result,
         errors = errors?.map { it.toModel() }
     )
 }

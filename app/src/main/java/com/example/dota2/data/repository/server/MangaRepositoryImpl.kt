@@ -183,6 +183,10 @@ class MangaRepositoryImpl @Inject constructor(
         createdAtSince: String?,
         updatedAtSince: String?,
         orderLatestUploadedChapter: String?,
+
+        orderFollowedCount: String?,
+        orderRating: String?,
+
         includes: List<String>?,
         hasAvailableChapters: String?,
         hasUnavailableChapters: String?
@@ -208,6 +212,8 @@ class MangaRepositoryImpl @Inject constructor(
             createdAtSince,
             updatedAtSince,
             orderLatestUploadedChapter,
+            orderFollowedCount,
+            orderRating,
             includes,
             hasAvailableChapters,
             hasUnavailableChapters
@@ -263,7 +269,6 @@ class MangaRepositoryImpl @Inject constructor(
         }
     }
 
-
     override suspend fun getMangaFeed(
         mangaId: String,
         limit: Int?,
@@ -274,7 +279,7 @@ class MangaRepositoryImpl @Inject constructor(
         contentRating: List<String>?,
         excludedGroups: List<String>?,
         excludedUploaders: List<String>?,
-        includeFutureUpdates: Int?,
+        includeFutureUpdates: String?,
         orderCreatedAt: String?,
         orderUpdatedAt: String?,
         orderPublishAt: String?,
@@ -285,7 +290,7 @@ class MangaRepositoryImpl @Inject constructor(
         includeEmptyPages: Int?,
         includeFuturePublishAt: Int?,
         includeExternalUrl: Int?,
-        includeUnavailable: Int?
+        includeUnavailable: String?
     ): Result<MangaFeedResponceModel> {
         return server.getMangaFeed(
             mangaId,

@@ -110,6 +110,10 @@ interface MangaRepository {
         createdAtSince: String?,
         updatedAtSince: String?,
         orderLatestUploadedChapter: String?,
+
+        orderFollowedCount: String?,
+        orderRating: String?,
+
         includes: List<String>?,
         hasAvailableChapters: String?,
         hasUnavailableChapters: String?
@@ -147,7 +151,7 @@ interface MangaRepository {
         contentRating: List<String>?,
         excludedGroups: List<String>?,
         excludedUploaders: List<String>?,
-        includeFutureUpdates: Int?,
+        includeFutureUpdates: String?,
         orderCreatedAt: String?,
         orderUpdatedAt: String?,
         orderPublishAt: String?,
@@ -158,7 +162,7 @@ interface MangaRepository {
         includeEmptyPages: Int?,
         includeFuturePublishAt: Int?,
         includeExternalUrl: Int?,
-        includeUnavailable: Int?
+        includeUnavailable: String?
     ): Result<MangaFeedResponceModel>
 
 

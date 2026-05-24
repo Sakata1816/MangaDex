@@ -2,8 +2,6 @@ package com.example.dota2.domain.model.server
 
 
 data class CoverArtListResponseModel(
-    val result: String?,
-    val response: String?,
     val data: List<CoverArtModel>?,
 
     val limit: Int?,

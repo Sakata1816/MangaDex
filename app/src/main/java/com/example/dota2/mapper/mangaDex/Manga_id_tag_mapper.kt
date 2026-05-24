@@ -6,8 +6,6 @@ import com.example.dota2.domain.model.server.TagListResponseModel
 
 fun TagListResponseDto.toModel(): TagListResponseModel{
     return TagListResponseModel(
-        result = result,
-        response = response,
         data = data?.map { it.toModel() },
 
         limit = limit,
@@ -21,8 +19,8 @@ fun TagListResponseDto.toModel(): TagListResponseModel{
 
 fun TagListResponseModel.toDto(): TagListResponseDto{
     return TagListResponseDto(
-        result = result,
-        response = response,
+        result = null,
+        response = null,
         data = data?.map { it.toDto() },
 
         limit = limit,

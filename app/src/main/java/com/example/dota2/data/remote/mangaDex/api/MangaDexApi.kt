@@ -191,7 +191,13 @@ interface MangaDexApi {
         @Query("updatedAtSince")
         updatedAtSince: String? = null,
         @Query("order[latestUploadedChapter]")
-        orderLatestUploadedChapter: String? = "desc",
+        orderLatestUploadedChapter: String? = null,
+
+        @Query("order[followedCount]")
+        orderFollowedCount: String? = null,
+        @Query("order[rating]")
+        orderRating: String? = null,
+
         @Query("includes[]")
         includes: List<String>? = null,
         @Query("hasAvailableChapters")
@@ -257,7 +263,7 @@ interface MangaDexApi {
         @Query("excludedUploaders[]")
         excludedUploaders: List<String>? = null,
         @Query("includeFutureUpdates")
-        includeFutureUpdates: Int? = null,
+        includeFutureUpdates: String? = null,
         @Query("order[createdAt]")
         orderCreatedAt: String? = null,
         @Query("order[updatedAt]")
@@ -279,7 +285,7 @@ interface MangaDexApi {
         @Query("includeExternalUrl")
         includeExternalUrl: Int? = null,
         @Query("includeUnavailable")
-        includeUnavailable: Int? = null
+        includeUnavailable: String? = null
     ): Response<MangaFeedResponceDto>
 
 

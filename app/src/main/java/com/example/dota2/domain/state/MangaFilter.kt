@@ -2,27 +2,36 @@ package com.example.dota2.domain.state
 
 data class MangaFilters(
     val status: List<Status>? = null,
-    val authors: List<String>? = null,
-    val artists: List<String>? = null,
     val contentRating: List<ContentRating>? = null,
     val includedTags: List<String>? = null,
     val excludedTags: List<String>? = null,
     val publicationDemographic: List<PublicationDemographic>? = null,
-    val includes: List<MangaIncludeType>? = null,
+    val includes: List<IncludeType>? = null,
     val year: Int? = null,
-    val orderLatestUploadedChapter: SortOrder = SortOrder.DESC, // по умолчанию новые сверху
+    val availableChapter: Boolean = true,
+    val orderLatestUploadedChapter: SortOrder? = null,
+    val orderFollowedCount: SortOrder? = null,
+    val orderRating: SortOrder? = null
 )
+
+
+
+
+fun Boolean.toApiValue(): String {
+    return if (this) "true" else "false"
+}
+
 
 enum class SortOrder { ASC, DESC }
 
-fun SortOrder.toString(): String {
+fun SortOrder.toApiValue(): String {
     return when (this) {
         SortOrder.ASC -> "asc"
         SortOrder.DESC -> "desc"
     }
 }
 
-enum class MangaIncludeType {
+enum class IncludeType {
     MANGA,
     COVER_ART,
     AUTHOR,
@@ -31,46 +40,46 @@ enum class MangaIncludeType {
     CREATOR
 }
 
-fun MangaIncludeType.toString(): String {
+fun IncludeType.toApiValue(): String {
     return when (this) {
-        MangaIncludeType.MANGA -> "manga"
-        MangaIncludeType.COVER_ART -> "cover_art"
-        MangaIncludeType.AUTHOR -> "author"
-        MangaIncludeType.ARTIST -> "artist"
-        MangaIncludeType.TAG -> "tag"
-        MangaIncludeType.CREATOR -> "creator"
+        IncludeType.MANGA -> "manga"
+        IncludeType.COVER_ART -> "cover_art"
+        IncludeType.AUTHOR -> "author"
+        IncludeType.ARTIST -> "artist"
+        IncludeType.TAG -> "tag"
+        IncludeType.CREATOR -> "creator"
     }
 }
 
-enum class ContentRating{
+enum class Status{
     ONGOING,
     COMPLETED,
     HIATUS,
     CANCELLED
 }
 
-fun ContentRating.toString(): String {
+fun Status.toApiValue(): String {
     return when (this) {
-        ContentRating.ONGOING -> "ongoing"
-        ContentRating.COMPLETED -> "completed"
-        ContentRating.HIATUS -> "hiatus"
-        ContentRating.CANCELLED -> "cancelled"
+        Status.ONGOING -> "ongoing"
+        Status.COMPLETED -> "completed"
+        Status.HIATUS -> "hiatus"
+        Status.CANCELLED -> "cancelled"
     }
 }
 
-enum class Status{
+enum class ContentRating{
     SAFE,
     SUGGESTIVE,
     EROTICA,
     PORNOGRAPHIC
 }
 
-fun Status.toString(): String {
+fun ContentRating.toApiValue(): String {
     return when (this) {
-        Status.SAFE -> "safe"
-        Status.SUGGESTIVE -> "suggestive"
-        Status.EROTICA -> "erotica"
-        Status.PORNOGRAPHIC -> "pornographic"
+        ContentRating.SAFE -> "safe"
+        ContentRating.SUGGESTIVE -> "suggestive"
+        ContentRating.EROTICA -> "erotica"
+        ContentRating.PORNOGRAPHIC -> "pornographic"
     }
 }
 enum class PublicationDemographic{
@@ -80,7 +89,7 @@ enum class PublicationDemographic{
     NONE
 }
 
-fun PublicationDemographic.toString(): String {
+fun PublicationDemographic.toApiValue(): String {
     return when (this) {
         PublicationDemographic.SHOUJO -> "shoujo"
         PublicationDemographic.JOSEI -> "josei"
@@ -94,7 +103,7 @@ enum class AvailableChapter{
     FALSE
 }
 
-fun AvailableChapter.toString(): String {
+fun AvailableChapter.toApiValue(): String {
     return when (this) {
         AvailableChapter.TRUE -> "true"
         AvailableChapter.FALSE -> "false"

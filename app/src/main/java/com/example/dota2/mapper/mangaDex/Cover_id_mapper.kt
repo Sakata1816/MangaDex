@@ -5,8 +5,6 @@ import com.example.dota2.domain.model.server.CoverArtResponseModel
 
 fun CoverArtResponseDto.toModel(): CoverArtResponseModel {
     return CoverArtResponseModel(
-        result = result,
-        response = response,
         data = data?.toModel(),
 
         limit = limit,
@@ -19,8 +17,8 @@ fun CoverArtResponseDto.toModel(): CoverArtResponseModel {
 
 fun CoverArtResponseModel.toDto(): CoverArtResponseDto{
     return CoverArtResponseDto(
-        result = result,
-        response = response,
+        result = null,
+        response = null,
         data = data?.toDto(),
 
         limit = limit,

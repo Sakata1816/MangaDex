@@ -1,7 +1,6 @@
 package com.example.dota2.domain.model.server
 
 data class ErrorResponseModel(
-    val result: String?,
     val errors: List<ApiErrorModel>?
 )
 

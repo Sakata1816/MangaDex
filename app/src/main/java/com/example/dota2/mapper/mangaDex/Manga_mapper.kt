@@ -15,8 +15,6 @@ import com.example.dota2.domain.model.server.TagModel
 
 fun MangaListResponseDto.toModel(): MangaListResponseModel {
     return MangaListResponseModel(
-        result = result,
-        response = response,
         data = data?.map { it.toModel() },
 
         limit = limit,
@@ -103,8 +101,8 @@ fun TagAttributesDto.toModel(): TagAttributesModel{
 
 fun MangaListResponseModel.toDto(): MangaListResponseDto {
     return MangaListResponseDto(
-        result = result,
-        response = response,
+        result = null,
+        response = null,
         data = data?.map { it.toDto() },
 
         limit = limit,

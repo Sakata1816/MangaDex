@@ -11,7 +11,6 @@ import com.example.dota2.domain.model.server.VolumeModel
 
 fun MangaAggregateResponseDto.toModel(): MangaAggregateResponseModel {
     return MangaAggregateResponseModel(
-        result = result,
         volumes = volumes?.mapValues { it.value.toModel() }
     )
 }
@@ -41,7 +40,7 @@ fun ChapterAggregateDto.toModel(): ChapterAggregateModel {
 
 fun MangaAggregateResponseModel.toDto(): MangaAggregateResponseDto {
     return MangaAggregateResponseDto(
-        result = result,
+        result = null,
         volumes = volumes?.mapValues { it.value.toDto() }
     )
 }

@@ -7,8 +7,6 @@ import com.example.dota2.domain.model.server.MangaFeedResponceModel
 
 fun MangaFeedResponceDto.toModel(): MangaFeedResponceModel{
     return MangaFeedResponceModel(
-        result = result,
-        response = response,
         data = data?.map { it.toModel() },
 
         limit = limit,
@@ -22,8 +20,8 @@ fun MangaFeedResponceDto.toModel(): MangaFeedResponceModel{
 
 fun MangaFeedResponceModel.toDto(): MangaFeedResponceDto{
     return MangaFeedResponceDto(
-        result = result,
-        response = response,
+        result = null,
+        response = null,
         data = data?.map { it.toDto() },
 
         limit = limit,

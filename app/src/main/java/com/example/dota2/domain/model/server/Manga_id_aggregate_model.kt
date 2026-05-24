@@ -1,7 +1,6 @@
 package com.example.dota2.domain.model.server
 
 data class MangaAggregateResponseModel(
-    val result: String?,
     val volumes: Map<String, VolumeModel>?
 )
 

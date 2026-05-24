@@ -2,8 +2,6 @@ package com.example.dota2.domain.model.server
 
 
 data class ScanlationGroupListResponseModel(
-    val result: String?,
-    val response: String?,
     val data: List<ScanlationGroupModel>?,
 
     val limit: Int?,

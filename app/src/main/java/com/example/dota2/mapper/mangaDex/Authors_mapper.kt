@@ -13,8 +13,6 @@ import com.example.dota2.domain.model.server.RelationshipModel
 
 fun AuthorListResponceDto.toModel(): AuthorListResponceModel {
     return AuthorListResponceModel(
-        result = result,
-        response = response,
         data = data?.map { it.toModel() },
 
         limit = limit,
@@ -77,8 +75,8 @@ fun RelationshipDto.toModel(): RelationshipModel{
 
 fun AuthorListResponceModel.toDto(): AuthorListResponceDto{
     return AuthorListResponceDto(
-        result = result,
-        response = response,
+        result = null,
+        response = null,
         data = data?.map { it.toDto() },
 
         limit = limit,

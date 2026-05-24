@@ -13,8 +13,6 @@ import com.example.dota2.domain.model.server.ScanlationGroupModel
 
 fun ScanlationGroupListResponseDto.toModel(): ScanlationGroupListResponseModel{
     return ScanlationGroupListResponseModel(
-        result = result,
-        response = response,
         data = data?.map { it.toModel() },
 
         limit = limit,
@@ -72,8 +70,8 @@ fun ScanlationGroupAttributesDto.toModel(): ScanlationGroupAttributesModel {
 
 fun ScanlationGroupListResponseModel.toDto(): ScanlationGroupListResponseDto{
     return ScanlationGroupListResponseDto(
-        result = result,
-        response = response,
+        result = null,
+        response = null,
         data = data?.map { it.toDto() },
 
         limit = limit,

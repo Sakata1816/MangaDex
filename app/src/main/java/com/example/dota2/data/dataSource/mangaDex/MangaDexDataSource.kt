@@ -89,10 +89,12 @@ class MangaDexDataSource @Inject constructor(
                              createdAtSince: String?,
                              updatedAtSince: String?,
                              orderLatestUploadedChapter: String?,
+                             orderFollowedCount: String?,
+                             orderRating: String?,
                              includes: List<String>?,
                              hasAvailableChapters: String?,
                              hasUnavailableChapters: String?
-    ) = api.getMangaList(limit,offset,title,authorOrArtist,authors,artists,includedTags,includedTagsMode,excludedTags,excludedTagsMode,status,originalLanguage,excludedOriginalLanguage,availableTranslatedLanguage,publicationDemographic,ids,contentRating,createdAtSince,updatedAtSince,orderLatestUploadedChapter,includes,hasAvailableChapters,hasUnavailableChapters)
+    ) = api.getMangaList(limit,offset,title,authorOrArtist,authors,artists,includedTags,includedTagsMode,excludedTags,excludedTagsMode,status,originalLanguage,excludedOriginalLanguage,availableTranslatedLanguage,publicationDemographic,ids,contentRating,createdAtSince,updatedAtSince,orderLatestUploadedChapter,orderFollowedCount,orderRating,includes,hasAvailableChapters,hasUnavailableChapters)
 
 
     suspend fun getMangaById(id: String,
@@ -123,7 +125,7 @@ class MangaDexDataSource @Inject constructor(
                              contentRating: List<String>?,
                              excludedGroups: List<String>?,
                              excludedUploaders: List<String>?,
-                             includeFutureUpdates: Int?,
+                             includeFutureUpdates: String?,
                              orderCreatedAt: String?,
                              orderUpdatedAt: String?,
                              orderPublishAt: String?,
@@ -134,7 +136,7 @@ class MangaDexDataSource @Inject constructor(
                              includeEmptyPages: Int?,
                              includeFuturePublishAt: Int?,
                              includeExternalUrl: Int?,
-                             includeUnavailable: Int?
+                             includeUnavailable: String?
     ) = api.getMangaFeed(mangaId,limit,offset,translatedLanguage,originalLanguage,excludedOriginalLanguage,contentRating,excludedGroups,excludedUploaders,includeFutureUpdates,orderCreatedAt,orderUpdatedAt,orderPublishAt,orderReadableAt,orderVolume,orderChapter,includes,includeEmptyPages,includeFuturePublishAt,includeExternalUrl,includeUnavailable)
 
 

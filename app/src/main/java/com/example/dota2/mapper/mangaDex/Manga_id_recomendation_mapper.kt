@@ -10,8 +10,6 @@ import com.example.dota2.domain.model.server.MangaRecommendationModel
 
 fun MangaRecommendationListResponseDto.toModel(): MangaRecommendationListResponseModel{
     return MangaRecommendationListResponseModel(
-        result = result,
-        response = response,
         data = data?.map { it.toModel() },
 
         limit = limit,
@@ -41,8 +39,8 @@ fun MangaRecommendationAttributesDto.toModel(): MangaRecommendationAttributesMod
 
 fun MangaRecommendationListResponseModel.toDto(): MangaRecommendationListResponseDto{
     return MangaRecommendationListResponseDto(
-        result = result,
-        response = response,
+        result = null,
+        response = null,
         data = data?.map { it.toDto() },
 
         limit = limit,

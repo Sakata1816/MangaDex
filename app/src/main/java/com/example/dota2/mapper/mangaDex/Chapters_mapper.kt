@@ -10,8 +10,6 @@ import com.example.dota2.domain.model.server.ChapterModel
 
     fun ChapterListResponseDto.toModel(): ChapterListResponseModel {
         return ChapterListResponseModel(
-            result = result,
-            response = response,
             data = data?.map { it.toModel() },
 
             limit = limit,
@@ -54,8 +52,8 @@ import com.example.dota2.domain.model.server.ChapterModel
 
     fun ChapterListResponseModel.toDto(): ChapterListResponseDto {
         return ChapterListResponseDto(
-            result = result,
-            response = response,
+            result = null,
+            response = null,
             data = data?.map { it.toDto() },
 
             limit = limit,

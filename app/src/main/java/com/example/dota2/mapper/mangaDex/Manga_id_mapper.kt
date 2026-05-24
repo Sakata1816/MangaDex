@@ -4,10 +4,9 @@ import com.example.dota2.data.remote.mangaDex.dto.MangaResponseDto
 import com.example.dota2.domain.model.server.MangaResponseModel
 
 
+
 fun MangaResponseDto.toModel(): MangaResponseModel{
     return MangaResponseModel(
-        result = result,
-        response = response,
         data = data?.toModel(),
 
         limit = limit,
@@ -20,8 +19,8 @@ fun MangaResponseDto.toModel(): MangaResponseModel{
 
 fun MangaResponseModel.toDto(): MangaResponseDto{
     return MangaResponseDto(
-        result = result,
-        response = response,
+        result = null,
+        response = null,
         data = data?.toDto(),
 
         limit = limit,
