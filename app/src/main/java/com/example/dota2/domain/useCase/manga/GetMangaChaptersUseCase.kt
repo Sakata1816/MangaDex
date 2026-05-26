@@ -2,6 +2,7 @@ package com.example.dota2.domain.useCase.manga
 
 import com.example.dota2.domain.model.server.MangaFeedResponceModel
 import com.example.dota2.domain.repository.server.MangaRepository
+import com.example.dota2.domain.state.ContentRating
 import com.example.dota2.domain.state.IncludeType
 import com.example.dota2.domain.state.MangaVolumeChaptersState
 import com.example.dota2.domain.state.SortOrder
@@ -23,7 +24,7 @@ class GetMangaChaptersUseCase @Inject constructor(
         mangaId: String,
         page: Int = 0,
         includes: List<IncludeType> = listOf(IncludeType.MANGA),
-        rating: List<Status> = listOf(Status.SAFE)
+        rating: List<ContentRating> = listOf(ContentRating.SAFE)
     ): Result<List<MangaVolumeChaptersState>>{
 
 

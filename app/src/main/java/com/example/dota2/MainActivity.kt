@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.dota2.presentation.navigation.mainRoot.MainRoot
 import com.example.dota2.presentation.screens.MainScreen
 import com.example.dota2.ui.theme.Dota2Theme
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,9 +24,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Dota2Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(modifier = Modifier.padding(innerPadding))
-                }
+                MainRoot()
             }
         }
     }

@@ -11,11 +11,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface RepositoryDi {
+abstract class MangaRepositoryDi {
 
     @Binds
     @Singleton
-    fun bindsMangaRepo(
+     abstract  fun bindsMangaRepo(
         impl: MangaRepositoryImpl
     ): MangaRepository
 }

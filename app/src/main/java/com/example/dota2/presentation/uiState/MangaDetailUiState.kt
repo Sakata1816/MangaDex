@@ -8,7 +8,7 @@ import com.example.dota2.domain.state.MangaVolumeChaptersState
 
 data class MangaDetailUiState(
     val details: MangaModel? = null,
-    val chapters: List<MangaVolumeChaptersState>? = null,
+    val chapters: List<MangaVolumeChaptersState> = emptyList(),
     val detailError: String? = null,
     val chapterError: String? = null,
     val mangaIsLoading: Boolean = false,

@@ -10,7 +10,7 @@ import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
 class GetMangaDetailsByIdUseCase @Inject constructor(
-private val repository: MangaRepository
+    private val repository: MangaRepository
 ){
 
     suspend operator fun invoke(

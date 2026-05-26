@@ -33,7 +33,7 @@ class MangaDetailScreenViewModel @Inject constructor(
             getMangaByIdUseCase(id)
                 .onSuccess {response ->
                     _state.update { it.copy(
-                        details = response.data,
+                        details = response.details,
                         mangaIsLoading = false)
                     }
                 }
@@ -61,12 +61,12 @@ class MangaDetailScreenViewModel @Inject constructor(
                 )
                 .onSuccess { response ->
 
-                    val newChapters = response.data?: emptyList()
+                    val newChapters = response
 
                     _state.update { it.copy(
                         chapters =  it.chapters + newChapters,
                         chaptersAreLoading = false,
-                        endReached = response.data.isNullOrEmpty(),
+                        endReached = response.isNullOrEmpty(),
                         page = it.page + 1
                     )
                     }
