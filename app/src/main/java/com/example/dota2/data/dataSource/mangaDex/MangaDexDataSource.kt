@@ -7,6 +7,8 @@ class MangaDexDataSource @Inject constructor(
     private val api: MangaDexApi
 ){
 
+    suspend fun getChapterServer(chapterId: String) = api.getChapterServer(chapterId)
+
     suspend fun getAuthors(limit: Int? ,
                            offset: Int?,
                            name: String?,
@@ -75,6 +77,7 @@ class MangaDexDataSource @Inject constructor(
                              authorOrArtist: String?,
                              authors: List<String>?,
                              artists: List<String>?,
+                             year: Int?,
                              includedTags: List<String>?,
                              includedTagsMode: String?,
                              excludedTags: List<String>?,
@@ -94,7 +97,7 @@ class MangaDexDataSource @Inject constructor(
                              includes: List<String>?,
                              hasAvailableChapters: String?,
                              hasUnavailableChapters: String?
-    ) = api.getMangaList(limit,offset,title,authorOrArtist,authors,artists,includedTags,includedTagsMode,excludedTags,excludedTagsMode,status,originalLanguage,excludedOriginalLanguage,availableTranslatedLanguage,publicationDemographic,ids,contentRating,createdAtSince,updatedAtSince,orderLatestUploadedChapter,orderFollowedCount,orderRating,includes,hasAvailableChapters,hasUnavailableChapters)
+    ) = api.getMangaList(limit,offset,title,authorOrArtist,authors,artists,year,includedTags,includedTagsMode,excludedTags,excludedTagsMode,status,originalLanguage,excludedOriginalLanguage,availableTranslatedLanguage,publicationDemographic,ids,contentRating,createdAtSince,updatedAtSince,orderLatestUploadedChapter,orderFollowedCount,orderRating,includes,hasAvailableChapters,hasUnavailableChapters)
 
 
     suspend fun getMangaById(id: String,

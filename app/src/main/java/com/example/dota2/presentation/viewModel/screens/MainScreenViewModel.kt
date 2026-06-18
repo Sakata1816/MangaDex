@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.dota2.domain.model.server.TagModel
 import com.example.dota2.domain.state.MangaFilters
 import com.example.dota2.domain.state.SortOrder
+import com.example.dota2.domain.useCase.manga.GetMangaListUseCase
 import com.example.dota2.domain.useCase.manga.GetMangaTagsUseCase
 import com.example.dota2.domain.useCase.manga.SearchMangaUseCase
 import com.example.dota2.presentation.uiState.MainListUiState
@@ -19,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
-    private val searchScreen: SearchMangaUseCase,
+    private val getMangaListUseCase: GetMangaListUseCase,
     private val getMangaTagsUseCase: GetMangaTagsUseCase
 ): ViewModel() {
 
@@ -89,7 +90,7 @@ class MainScreenViewModel @Inject constructor(
         viewModelScope.launch {
             state.update { it.copy(isLoading = true) }
 
-            searchScreen(
+            getMangaListUseCase(
                 page = currentState.page,
                 filters = currentState.filters
             )

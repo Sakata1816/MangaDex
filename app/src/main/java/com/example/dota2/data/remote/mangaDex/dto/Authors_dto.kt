@@ -11,7 +11,7 @@ data class AuthorListResponceDto(
 )
 
 data class AuthorItemDto(
-    val id: String?,
+    val id: String,
     val type: String?,
     val attributes: AuthorAttributesDto?,
     val relationships: List<RelationshipDto>?

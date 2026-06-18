@@ -1,5 +1,6 @@
 package com.example.dota2.data.remote.mangaDex.api
 
+import com.example.dota2.data.remote.mangaDex.dto.AtHomeServerDto
 import com.example.dota2.data.remote.mangaDex.dto.AuthorListResponceDto
 import com.example.dota2.data.remote.mangaDex.dto.AuthorResponceDto
 import com.example.dota2.data.remote.mangaDex.dto.ChapterListResponseDto
@@ -24,6 +25,12 @@ import retrofit2.http.Query
 
 
 interface MangaDexApi {
+
+    @GET("at-home/server/{chapter_id}")
+    suspend fun getChapterServer(
+        @Path("chapter_id")
+        chapterId: String
+    ): Response<AtHomeServerDto>
 
     @GET("authors")
     suspend fun getAuthors(
@@ -117,7 +124,7 @@ interface MangaDexApi {
     ):Response<ChapterResponseDto>
 
 
-    @GET("Cover")
+    @GET("cover")
     suspend fun getCovers(
         @Query("limit")
         limit: Int? = 10,
@@ -164,6 +171,8 @@ interface MangaDexApi {
         authors: List<String>? = null,
         @Query("artists[]")
         artists: List<String>? = null,
+        @Query("year")
+        year: Int? = null,
         @Query("includedTags[]")
         includedTags: List<String>? = null,
         @Query("includedTagsMode")

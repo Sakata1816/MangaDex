@@ -11,7 +11,7 @@ data class MangaListResponseDto(
 )
 
 data class MangaDto(
-    val id: String?,
+    val id: String,
     val type: String?,
     val attributes: MangaAttributesDto?,
     val relationships: List<RelationshipDto>?

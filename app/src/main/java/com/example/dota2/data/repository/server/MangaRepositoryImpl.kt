@@ -12,6 +12,12 @@ class MangaRepositoryImpl @Inject constructor(
 ): MangaRepository {
 
 
+    override suspend fun getChapterServer(chapterId: String): Result<AtHomeServerModel> {
+        return server.getChapterServer(chapterId).toResult {
+            it.toModel()
+        }
+    }
+
     override suspend fun getAuthors(
         limit: Int?,
         offset: Int?,
@@ -169,6 +175,7 @@ class MangaRepositoryImpl @Inject constructor(
         authorOrArtist: String?,
         authors: List<String>?,
         artists: List<String>?,
+        year: Int?,
         includedTags: List<String>?,
         includedTagsMode: String?,
         excludedTags: List<String>?,
@@ -198,6 +205,7 @@ class MangaRepositoryImpl @Inject constructor(
             authorOrArtist,
             authors,
             artists,
+            year,
             includedTags,
             includedTagsMode,
             excludedTags,

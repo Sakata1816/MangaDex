@@ -9,7 +9,7 @@ data class AuthorListResponceModel(
 )
 
 data class AuthorItemModel(
-    val id: String?,
+    val id: String,
     val type: String?,
     val attributes: AuthorAttributesModel?,
     val relationships: List<RelationshipModel>?

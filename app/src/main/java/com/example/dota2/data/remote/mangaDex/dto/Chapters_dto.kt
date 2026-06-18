@@ -12,7 +12,7 @@ data class ChapterListResponseDto(
 )
 
 data class ChapterDto(
-    val id: String?,
+    val id: String,
     val type: String?,
     val attributes: ChapterAttributesDto?,
     val relationships: List<RelationshipDto>?

@@ -5,7 +5,7 @@ import com.example.dota2.domain.state.AuthorContentType
 import com.example.dota2.domain.state.toApiValue
 import javax.inject.Inject
 
-class ChaptersUseCases @Inject constructor(
+class wChaptersUseCases @Inject constructor(
     private val repository: MangaRepository
 ) {
 

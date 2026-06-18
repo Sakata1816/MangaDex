@@ -10,7 +10,7 @@ data class ChapterListResponseModel(
 )
 
 data class ChapterModel(
-    val id: String?,
+    val id: String,
     val type: String?,
     val attributes: ChapterAttributesModel?,
     val relationships: List<RelationshipModel>?

@@ -27,7 +27,7 @@ fun MainRoot(){
 
     val NavBarRoutes = listOf(
         NavRoutes.Main.route,
-        NavRoutes.Search.route,
+        NavRoutes.Catalog.route,
         NavRoutes.Favorites.route,
         NavRoutes.Settings.route
     )
@@ -45,8 +45,6 @@ fun MainRoot(){
     ){
         AppNavGraph(navController = navController, modifier = Modifier.padding(it))
     }
-
-
 
 }
 
@@ -78,7 +76,7 @@ fun NavigationBar(
             selected = currentRoute == NavRoutes.Favorites.route,
             onClick = {
                 navController.navigate(NavRoutes.Favorites.route){
-                    popUpTo(NavRoutes.Favorites.route){
+                    popUpTo(NavRoutes.Main.route){
                         saveState = true
                         inclusive = false
                     }
@@ -92,10 +90,10 @@ fun NavigationBar(
         )
 
         NavigationBarItem(
-            selected = currentRoute == NavRoutes.Search.route,
+            selected = currentRoute == NavRoutes.Catalog.route,
             onClick = {
-                navController.navigate(NavRoutes.Search.route){
-                    popUpTo(NavRoutes.Search.route){
+                navController.navigate(NavRoutes.CatalogGraph.route){
+                    popUpTo(NavRoutes.Main.route){
                         saveState = true
                         inclusive = false
                     }
@@ -111,7 +109,7 @@ fun NavigationBar(
             selected = currentRoute == NavRoutes.Settings.route,
             onClick = {
                 navController.navigate(NavRoutes.Settings.route){
-                    popUpTo(NavRoutes.Settings.route){
+                    popUpTo(NavRoutes.Main.route){
                         saveState = true
                         inclusive = false
                     }

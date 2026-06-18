@@ -3,8 +3,10 @@ package com.example.dota2.presentation.viewModel.screens
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dota2.domain.state.MangaFilters
+import com.example.dota2.domain.useCase.manga.GetMangaTagsUseCase
 import com.example.dota2.domain.useCase.manga.SearchMangaUseCase
 import com.example.dota2.presentation.uiState.MangaSearchUiState
+import com.example.dota2.presentation.uiState.TagsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,13 +19,20 @@ import javax.inject.Inject
 @HiltViewModel
 class MangaSearchScreenViewModel @Inject constructor(
     private val SearchMangaUseCase: SearchMangaUseCase,
+    private val getMangaTagsUseCase: GetMangaTagsUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow(MangaSearchUiState())
     val state = _state.asStateFlow()
 
+    private val _tagsState = MutableStateFlow(TagsUiState())
+    val tagsState = _tagsState.asStateFlow()
+
+
+
     init {
         loadMangaList()
+        getTagsList()
     }
 
 
@@ -40,7 +49,7 @@ class MangaSearchScreenViewModel @Inject constructor(
 
             SearchMangaUseCase(
                 page = page,
-                authorOrArtistOrTitle = currentState.search,
+                title = currentState.search,
                 filters = currentState.filter
             ).onSuccess {response->
 
@@ -90,5 +99,29 @@ class MangaSearchScreenViewModel @Inject constructor(
         loadMangaList(reset = true)
     }
 
+
+    fun getTagsList() {
+        _tagsState.update { it.copy(isLoading = true) }
+        viewModelScope.launch {
+            getMangaTagsUseCase()
+                .onSuccess { response ->
+                    _tagsState.update {
+                        it.copy(
+                            tags = response.data ?: emptyList(),
+                            isLoading = false
+                        )
+                    }
+                }
+                .onFailure { throwable ->
+                    _tagsState.update {
+                        it.copy(
+                            error = throwable.message,
+                            isLoading = false
+                        )
+                    }
+                }
+        }
+
+    }
 
 }

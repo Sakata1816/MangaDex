@@ -10,7 +10,7 @@ data class MangaListResponseModel(
 )
 
 data class MangaModel(
-    val id: String?,
+    val id: String,
     val type: String?,
     val attributes: MangaAttributesModel?,
     val relationships: List<RelationshipModel>?

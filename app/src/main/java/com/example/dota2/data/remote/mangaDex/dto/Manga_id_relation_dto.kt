@@ -22,3 +22,4 @@ data class MangaRelationAttributesDto(
     val version: Int?
 )
 
+

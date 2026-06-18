@@ -3,10 +3,13 @@ package com.example.dota2.domain.state
 data class MangaFilters(
     val status: List<Status>? = null,
     val contentRating: List<ContentRating>? = null,
+    val authorOrArtist: String? = null,
+    val author: List<String>? = null,
+    val artist: List<String>? = null,
     val includedTags: List<String>? = null,
     val excludedTags: List<String>? = null,
     val publicationDemographic: List<PublicationDemographic>? = null,
-    val includes: List<IncludeType>? = null,
+    val includes: List<IncludeType>? = listOf(IncludeType.COVER_ART),
     val year: Int? = null,
     val availableChapter: Boolean = true,
     val orderLatestUploadedChapter: SortOrder? = null,
@@ -110,3 +113,21 @@ fun AvailableChapter.toApiValue(): String {
     }
 }
 
+
+enum class TranslatedLanguage{
+    ENGLISH,
+    JAPANESE,
+    CHINESE,
+    FRENCH,
+    SPANISH
+}
+
+fun TranslatedLanguage.toApiValue(): String {
+    return when (this) {
+        TranslatedLanguage.ENGLISH -> "en"
+        TranslatedLanguage.JAPANESE -> "ja"
+        TranslatedLanguage.CHINESE -> "zh"
+        TranslatedLanguage.FRENCH -> "fr"
+        TranslatedLanguage.SPANISH -> "es"
+    }
+}

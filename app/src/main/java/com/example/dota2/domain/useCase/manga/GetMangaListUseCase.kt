@@ -18,36 +18,35 @@ class GetMangaListUseCase @Inject constructor(
 
     suspend operator fun invoke(
         page: Int = 0,
+        ids: List<String>? = null,
         filters: MangaFilters = MangaFilters()
         ): Result<MangaListResponseModel> {
 
-        val chapter = if(filters.availableChapter){"true"} else {"false"}
-
         return repository.getMangaList(
             limit = PAGE_SIZE,
-            offset = page * PAGE_SIZE,
-            hasAvailableChapters = chapter,
-            orderLatestUploadedChapter = "desc",
-            hasUnavailableChapters = null,
-            includes = filters.includes?.map { it.toApiValue() },
+            offset = PAGE_SIZE * page,
             title = null,
             authorOrArtist = null,
             authors = null,
             artists = null,
-            includedTags = null,
-            includedTagsMode = null,
-            excludedTags = null,
-            excludedTagsMode = null,
-            status = null,
+            year = null,
+            includedTags = filters.includedTags,
+            includedTagsMode = "AND",
+            excludedTags = filters.excludedTags,
+            excludedTagsMode = "OR",
+            status = filters.status?.map { it.toApiValue() },
             originalLanguage = null,
             excludedOriginalLanguage = null,
             availableTranslatedLanguage = null,
-            publicationDemographic = null,
+            publicationDemographic = filters.publicationDemographic?.map { it.toApiValue() },
             ids = null,
-            contentRating = null,
+            contentRating = filters.contentRating?.map { it.toString() },
             createdAtSince = null,
             updatedAtSince = null,
-
+            orderLatestUploadedChapter = filters.orderLatestUploadedChapter?.toApiValue(),
+            includes = filters.includes?.map { it.toApiValue() },
+            hasAvailableChapters = filters.availableChapter.toApiValue(),
+            hasUnavailableChapters = null,
             orderFollowedCount = filters.orderFollowedCount?.toApiValue(),
             orderRating = filters.orderRating?.toApiValue()
         )

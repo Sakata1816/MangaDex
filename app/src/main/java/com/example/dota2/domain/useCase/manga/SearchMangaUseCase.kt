@@ -12,24 +12,25 @@ class SearchMangaUseCase @Inject constructor(
 ) {
 
     private companion object {
-        const val PAGE_SIZE = 20
+        const val PAGE_SIZE = 50
     }
 
     suspend operator fun invoke(
         page:Int = 0,
-        authorOrArtistOrTitle: String? = null,
+        title: String? = null,
         filters: MangaFilters = MangaFilters()
     ): Result<MangaListResponseModel> {
 
         return repository.getMangaList(
             limit = PAGE_SIZE,
             offset = PAGE_SIZE * page,
-            title = authorOrArtistOrTitle,
-            authorOrArtist = authorOrArtistOrTitle,
-            authors = null,
-            artists = null,
+            title = title,
+            authorOrArtist = filters.authorOrArtist,
+            authors = filters.author,
+            artists = filters.artist,
+            year = filters.year,
             includedTags = filters.includedTags,
-            includedTagsMode = "OR",
+            includedTagsMode = "AND",
             excludedTags = filters.excludedTags,
             excludedTagsMode = "OR",
             status = filters.status?.map { it.toApiValue() },
@@ -38,7 +39,7 @@ class SearchMangaUseCase @Inject constructor(
             availableTranslatedLanguage = null,
             publicationDemographic = filters.publicationDemographic?.map { it.toApiValue() },
             ids = null,
-            contentRating = filters.contentRating?.map { it.toString() },
+            contentRating = filters.contentRating?.map { it.toApiValue() },
             createdAtSince = null,
             updatedAtSince = null,
             orderLatestUploadedChapter = filters.orderLatestUploadedChapter?.toApiValue(),

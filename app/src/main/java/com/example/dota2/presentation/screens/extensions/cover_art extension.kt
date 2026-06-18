@@ -2,6 +2,8 @@ package com.example.dota2.presentation.screens.extensions
 
 import android.util.Log
 import com.example.dota2.domain.model.server.MangaModel
+import com.example.dota2.domain.model.server.MangaRelationModel
+import kotlin.collections.map
 
 fun MangaModel.getCoverUrl(): String? {
     val coverRelationship = relationships
@@ -22,3 +24,4 @@ fun MangaModel.getCoverUrl(): String? {
         "https://uploads.mangadex.org/covers/$id/$fileName"
     } else null
 }
+

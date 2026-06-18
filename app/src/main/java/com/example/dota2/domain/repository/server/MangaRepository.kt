@@ -1,5 +1,6 @@
 package com.example.dota2.domain.repository.server
 
+import com.example.dota2.domain.model.server.AtHomeServerModel
 import com.example.dota2.domain.model.server.AuthorListResponceModel
 import com.example.dota2.domain.model.server.AuthorResponceModel
 import com.example.dota2.domain.model.server.ChapterListResponseModel
@@ -19,6 +20,8 @@ import com.example.dota2.domain.model.server.TagListResponseModel
 
 
 interface MangaRepository {
+
+    suspend fun getChapterServer(chapterId: String): Result<AtHomeServerModel>
 
     suspend fun getAuthors(
         limit: Int?,
@@ -96,6 +99,7 @@ interface MangaRepository {
         authorOrArtist: String?,
         authors: List<String>?,
         artists: List<String>?,
+        year: Int?,
         includedTags: List<String>?,
         includedTagsMode: String?,
         excludedTags: List<String>?,
