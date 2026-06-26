@@ -1,4 +1,4 @@
-package com.example.dota2.presentation.screens
+package com.example.dota2.presentation.screens.animeScreens
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -18,7 +18,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,14 +32,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.dota2.presentation.screens.components.BackButton
 import com.example.dota2.presentation.screens.components.ChapterSettingsSheet
 import com.example.dota2.presentation.uiState.ReadMode
 import com.example.dota2.presentation.viewModel.screens.ReaderScreenViewModel
-import org.checkerframework.checker.units.qual.mol
 
 
 @Composable

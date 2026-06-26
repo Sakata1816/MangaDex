@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.dota2.domain.model.server.TagModel
-import com.example.dota2.presentation.screens.TagsCard
+import com.example.dota2.presentation.screens.animeScreens.TagsCard
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

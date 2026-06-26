@@ -1,5 +1,7 @@
-package com.example.dota2.presentation.screens
+package com.example.dota2.presentation.screens.animeScreens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -29,35 +30,43 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.dota2.domain.state.MangaFilters
+import com.example.dota2.data.local.entity.MangaStatus
+import com.example.dota2.mapper.profile.toUi
 import com.example.dota2.presentation.navigation.mainRoot.NavRoutes
 import com.example.dota2.presentation.screens.components.ErrorBlock
+import com.example.dota2.presentation.screens.components.MangaSortOrderCard
+import com.example.dota2.presentation.viewModel.profile.FavoritesViewModel
 import com.example.dota2.presentation.viewModel.screens.CatalogScreenViewModel
-import com.example.dota2.presentation.viewModel.screens.MainScreenViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlin.text.get
 
 
 @Composable
 fun CatalogScreen(
     navController: NavController,
-    viewModel: CatalogScreenViewModel
+    viewModel: CatalogScreenViewModel,
+    favoriteViewModel: FavoritesViewModel = hiltViewModel()
 ){
 
 
 
     val state by viewModel.state.collectAsState()
+    val favorites by favoriteViewModel.getFavorites.collectAsState()
 
     val listState = rememberLazyListState()
+    val context = LocalContext.current
+
+    val favoriteMap = remember(favorites) {
+        favorites.associateBy { it.id }
+    }
 
 
 
@@ -79,6 +88,22 @@ fun CatalogScreen(
                         "Filters"
                     )
                 }
+
+                Button(
+                    onClick = {
+                       val intent=  Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://www.youtube.com/")
+                        )
+                        context.startActivity(intent)
+                    }
+                ) {
+                    Text(
+                        "Intent"
+                    )
+                }
+
+                MangaSortOrderCard(state.filter,{viewModel.onSortChange(it)})
             }
         }
 
@@ -129,9 +154,19 @@ fun CatalogScreen(
             )
         ){
             items(state.manga){manga->
-                MangaFilterCard(
+
+                val status = favoriteMap[manga.id]?.userStatus ?: MangaStatus.NONE
+
+                FavoriteMangaCard(
                     manga,
-                    onClick = {navController.navigate(NavRoutes.MangaDetail.getPath(it))}
+                    onClick = {navController.navigate(NavRoutes.MangaDetail.getPath(it))},
+                    currentStatus = status,
+                    onStatusChange = { newStatus ->
+                        favoriteViewModel.changeStatus(
+                            manga = manga.toUi(newStatus), // или маппер
+                            status = newStatus
+                        )
+                    }
                 )
             }
 

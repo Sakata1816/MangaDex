@@ -1,4 +1,4 @@
-package com.example.dota2.presentation.screens
+package com.example.dota2.presentation.screens.animeScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.dota2.data.local.entity.MangaStatus
 import com.example.dota2.domain.model.server.MangaModel
 import com.example.dota2.domain.state.MangaFilters
 import com.example.dota2.presentation.navigation.mainRoot.NavRoutes

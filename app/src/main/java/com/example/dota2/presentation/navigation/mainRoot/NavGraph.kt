@@ -11,15 +11,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.dota2.presentation.screens.CatalogScreen
-import com.example.dota2.presentation.screens.FilterScreen
-import com.example.dota2.presentation.screens.MainScreen
-import com.example.dota2.presentation.screens.MangaDetailScreen
-import com.example.dota2.presentation.screens.ReaderScreen
-import com.example.dota2.presentation.screens.MangaFilterList
-import com.example.dota2.presentation.screens.TagsListScreen
+import com.example.dota2.presentation.screens.animeScreens.CatalogScreen
+import com.example.dota2.presentation.screens.animeScreens.FavoriteMangaScreen
+import com.example.dota2.presentation.screens.animeScreens.FilterScreen
+import com.example.dota2.presentation.screens.animeScreens.MainScreen
+import com.example.dota2.presentation.screens.animeScreens.MangaDetailScreen
+import com.example.dota2.presentation.screens.animeScreens.ReaderScreen
+import com.example.dota2.presentation.screens.animeScreens.MangaFilterList
+import com.example.dota2.presentation.screens.animeScreens.SettingsScreen
+import com.example.dota2.presentation.screens.animeScreens.TagsListScreen
 import com.example.dota2.presentation.viewModel.screens.CatalogScreenViewModel
-import com.example.dota2.presentation.viewModel.screens.MainScreenViewModel
 
 @Composable
 fun AppNavGraph(navController: NavHostController,modifier: Modifier) {
@@ -34,10 +35,12 @@ fun AppNavGraph(navController: NavHostController,modifier: Modifier) {
         }
 
         composable(NavRoutes.Favorites.route){
+            FavoriteMangaScreen(navController)
 
         }
 
         composable(NavRoutes.Settings.route){
+            SettingsScreen(navController)
 
         }
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1081145889774",
+    "project_id": "mangadex-ddbc5",
+    "storage_bucket": "mangadex-ddbc5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081145889774:android:4c46eb27bd8ac199b8b4ff",
+        "android_client_info": {
+          "package_name": "com.example.Dota2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx39Sw4CJdRb-LY1xNPWYtYa7h0xdIWTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

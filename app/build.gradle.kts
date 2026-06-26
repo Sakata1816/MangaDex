@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.hilt)
     kotlin("kapt")
     id("com.google.devtools.ksp")
-
+    id("com.google.gms.google-services") // <- вот это важно
 
 
 }
@@ -116,4 +116,5 @@ dependencies {
     implementation("com.google.firebase:firebase-storage-ktx")
 // Kotlin Coroutines support для Firestore
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+
 }

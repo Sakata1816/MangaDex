@@ -1,4 +1,4 @@
-package com.example.dota2.presentation.screens
+package com.example.dota2.presentation.screens.animeScreens
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background

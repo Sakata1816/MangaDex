@@ -1,4 +1,4 @@
-package com.example.dota2.presentation.screens
+package com.example.dota2.presentation.screens.animeScreens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

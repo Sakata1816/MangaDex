@@ -14,7 +14,7 @@ data class MangaFilters(
     val availableChapter: Boolean = true,
     val orderLatestUploadedChapter: SortOrder? = null,
     val orderFollowedCount: SortOrder? = null,
-    val orderRating: SortOrder? = null
+    val orderRating: SortOrder? = SortOrder.ASC
 )
 
 
