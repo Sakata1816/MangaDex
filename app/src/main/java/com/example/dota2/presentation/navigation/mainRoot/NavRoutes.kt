@@ -21,4 +21,6 @@ sealed class NavRoutes(val route: String){
     object Catalog : NavRoutes("catalog_screen")
     object CatalogGraph : NavRoutes("catalog_graph")
     object ChangeProfile: NavRoutes("change_profile_screen")
+
+
 }

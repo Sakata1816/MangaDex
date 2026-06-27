@@ -24,7 +24,6 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val repository: ProfileRepository,
     private val updateUserProfileUseCase: UpdateUserProfileUseCase,
-    private val ensureUserProfileUseCase: EnsureUserProfileUseCase,
     private val authRepository: AuthRepository
     ): ViewModel(){
 
@@ -32,6 +31,9 @@ class ProfileViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     var profile by mutableStateOf<UserProfileModel?>(null)
+        private set
+
+    var isSaved by mutableStateOf(false)
         private set
 
 
@@ -88,7 +90,8 @@ class ProfileViewModel @Inject constructor(
                 } else {
                     state.value.profile?.avatarUrl
                 }
-                repository.updateProfile(uid, username, avatarUrl)
+                updateUserProfileUseCase(uid, username, avatarUrl)
+                isSaved = true
 
 
                 //change
@@ -101,6 +104,10 @@ class ProfileViewModel @Inject constructor(
                 _state.update { it.copy(error = e.message?:"Ошибка обновления профиля", isLoading = false) }
             }
         }
+    }
+
+    fun resetState(){
+        isSaved = false
     }
 
 

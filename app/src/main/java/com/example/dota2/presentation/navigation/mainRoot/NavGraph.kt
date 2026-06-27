@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.example.dota2.presentation.screens.animeScreens.CatalogScreen
+import com.example.dota2.presentation.screens.animeScreens.ChangeProfileScreen
 import com.example.dota2.presentation.screens.animeScreens.FavoriteMangaScreen
 import com.example.dota2.presentation.screens.animeScreens.FilterScreen
 import com.example.dota2.presentation.screens.animeScreens.MainScreen
@@ -36,12 +37,14 @@ fun AppNavGraph(navController: NavHostController,modifier: Modifier) {
 
         composable(NavRoutes.Favorites.route){
             FavoriteMangaScreen(navController)
-
         }
 
         composable(NavRoutes.Settings.route){
             SettingsScreen(navController)
+        }
 
+        composable(NavRoutes.ChangeProfile.route){
+            ChangeProfileScreen(navController)
         }
 
         navigation(
