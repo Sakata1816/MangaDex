@@ -40,7 +40,7 @@ interface FavoriteMangaDao{
     SELECT * FROM favorite_manga 
     WHERE userStatus = :status 
     AND userId = :userId
-    AND LOWER(title) LIKE '%' || LOWER(:query) || '%'
+    AND LOWER(altTitles) LIKE '%' || LOWER(:query) || '%'
 """)
     fun getAnimeByStatus(status: MangaStatus, query: String,userId: String): Flow<List<FavoriteMangaEntity>>
 

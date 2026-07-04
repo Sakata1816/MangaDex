@@ -26,7 +26,7 @@ class GetMangaListUseCase @Inject constructor(
             limit = PAGE_SIZE,
             offset = PAGE_SIZE * page,
             title = null,
-            authorOrArtist = null,
+            authorOrArtist = filters.authorOrArtist,
             authors = null,
             artists = null,
             year = null,

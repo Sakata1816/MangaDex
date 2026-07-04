@@ -4,10 +4,12 @@ import com.example.dota2.data.repository.auth.AuthRepositoryImpl
 import com.example.dota2.data.repository.profile.FavoriteRepositoryImpl
 import com.example.dota2.data.repository.profile.ProfileRepositoryImpl
 import com.example.dota2.data.repository.server.MangaRepositoryImpl
+import com.example.dota2.data.repository.theme.ThemeRepositoryImpl
 import com.example.dota2.domain.repository.auth.AuthRepository
 import com.example.dota2.domain.repository.profile.FavoriteRepository
 import com.example.dota2.domain.repository.profile.ProfileRepository
 import com.example.dota2.domain.repository.server.MangaRepository
+import com.example.dota2.domain.repository.theme.ThemeRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -43,5 +45,10 @@ abstract class MangaRepositoryDi {
         impl: AuthRepositoryImpl
     ): AuthRepository
 
+    @Binds
+    @Singleton
+    abstract fun bindThemeRepo(
+        impl: ThemeRepositoryImpl
+    ): ThemeRepository
 
 }

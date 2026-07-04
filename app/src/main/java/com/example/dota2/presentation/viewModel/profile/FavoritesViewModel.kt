@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -36,7 +37,8 @@ class FavoritesViewModel @Inject constructor(
     init {
         // Синхронизируем _searchQuery со state
         viewModelScope.launch {
-            _searchQuery
+            _state
+                .map { it.searchQuery }
                 .debounce(300)
                 .distinctUntilChanged()
                 .collect { query ->
@@ -58,7 +60,8 @@ class FavoritesViewModel @Inject constructor(
         updater:(List<UserFavoriteMangaModel>, FavoriteMangaUiState) -> FavoriteMangaUiState
     ){
         viewModelScope.launch {
-            _searchQuery
+            _state
+                .map { it.searchQuery }
                 .debounce(300)
                 .distinctUntilChanged()
                 .flatMapLatest { query -> repository.getMangaByStatus(status,query) }
@@ -70,8 +73,8 @@ class FavoritesViewModel @Inject constructor(
 
 
     val getFavorites = combine(
-        repository.getFavorites(_searchQuery.value),
-        searchQuery
+        repository.getFavorites(state.value.searchQuery),
+        _state.map { it.searchQuery }
     ) { list, query ->
         list.filter { manga ->
             query.isBlank() || manga.title.getPreferredDescription().contains(query, ignoreCase = true)
@@ -103,8 +106,10 @@ class FavoritesViewModel @Inject constructor(
     }
 
 
-    fun setSearch(query: String){
-        _searchQuery.value = query
+    fun setSearch(query: String) {
+        _state.update {
+            it.copy(searchQuery = query)
+        }
     }
 
 

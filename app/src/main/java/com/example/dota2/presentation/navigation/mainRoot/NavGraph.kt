@@ -11,16 +11,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.dota2.presentation.screens.animeScreens.CatalogScreen
-import com.example.dota2.presentation.screens.animeScreens.ChangeProfileScreen
-import com.example.dota2.presentation.screens.animeScreens.FavoriteMangaScreen
-import com.example.dota2.presentation.screens.animeScreens.FilterScreen
-import com.example.dota2.presentation.screens.animeScreens.MainScreen
-import com.example.dota2.presentation.screens.animeScreens.MangaDetailScreen
-import com.example.dota2.presentation.screens.animeScreens.ReaderScreen
-import com.example.dota2.presentation.screens.animeScreens.MangaFilterList
-import com.example.dota2.presentation.screens.animeScreens.SettingsScreen
-import com.example.dota2.presentation.screens.animeScreens.TagsListScreen
+import com.example.dota2.presentation.screens.mangaScreens.CatalogScreen
+import com.example.dota2.presentation.screens.mangaScreens.ChangeProfileScreen
+import com.example.dota2.presentation.screens.mangaScreens.FavoriteMangaScreen
+import com.example.dota2.presentation.screens.mangaScreens.FilterScreen
+import com.example.dota2.presentation.screens.mangaScreens.MainScreen
+import com.example.dota2.presentation.screens.mangaScreens.MangaDetailScreen
+import com.example.dota2.presentation.screens.mangaScreens.ReaderScreen
+import com.example.dota2.presentation.screens.mangaScreens.MangaFilterList
+import com.example.dota2.presentation.screens.mangaScreens.SearchScreen
+import com.example.dota2.presentation.screens.mangaScreens.SettingsScreen
+import com.example.dota2.presentation.screens.mangaScreens.TagsListScreen
 import com.example.dota2.presentation.viewModel.screens.CatalogScreenViewModel
 
 @Composable
@@ -32,7 +33,7 @@ fun AppNavGraph(navController: NavHostController,modifier: Modifier) {
         }
 
         composable(NavRoutes.Search.route){
-
+            SearchScreen(navController)
         }
 
         composable(NavRoutes.Favorites.route){
