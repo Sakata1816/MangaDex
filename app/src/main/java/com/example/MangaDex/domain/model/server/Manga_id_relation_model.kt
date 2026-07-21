@@ -1,0 +1,22 @@
+package com.example.MangaDex.domain.model.server
+
+
+data class MangaRelationListResponseModel(
+    val data: List<MangaRelationModel>?,
+
+    val limit: Int?,
+    val offset: Int?,
+    val total: Int?
+)
+
+data class MangaRelationModel(
+    val id: String?,
+    val type: String?,
+    val attributes: MangaRelationAttributesModel?,
+    val relationships: List<RelationshipModel>?
+)
+
+data class MangaRelationAttributesModel(
+    val relation: String?,
+    val version: Int?
+)

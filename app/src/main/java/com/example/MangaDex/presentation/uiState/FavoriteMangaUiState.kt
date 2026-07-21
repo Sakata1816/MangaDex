@@ -1,0 +1,14 @@
+package com.example.MangaDex.presentation.uiState
+
+import com.example.MangaDex.domain.model.profile.UserFavoriteMangaModel
+
+data class FavoriteMangaUiState(
+    val searchQuery: String = "",
+    val watchingList: List<UserFavoriteMangaModel> = emptyList(),
+    val completedList: List<UserFavoriteMangaModel> = emptyList(),
+    val droppedList: List<UserFavoriteMangaModel> = emptyList(),
+    val plannedList: List<UserFavoriteMangaModel> = emptyList(),
+    val isLoading: Boolean = false,
+    val isRefreshing: Boolean = false,
+    val error: String? = null
+)

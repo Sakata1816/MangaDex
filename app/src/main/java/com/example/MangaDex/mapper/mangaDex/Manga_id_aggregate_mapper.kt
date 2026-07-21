@@ -1,0 +1,71 @@
+package com.example.MangaDex.mapper.mangaDex
+
+import com.example.MangaDex.data.remote.mangaDex.dto.ChapterAggregateDto
+import com.example.MangaDex.data.remote.mangaDex.dto.MangaAggregateResponseDto
+import com.example.MangaDex.data.remote.mangaDex.dto.VolumeDto
+import com.example.MangaDex.domain.model.server.ChapterAggregateModel
+import com.example.MangaDex.domain.model.server.MangaAggregateResponseModel
+import com.example.MangaDex.domain.model.server.VolumeModel
+
+
+
+fun MangaAggregateResponseDto.toModel(): MangaAggregateResponseModel {
+    return MangaAggregateResponseModel(
+        volumes = volumes?.mapValues { it.value.toModel() }
+    )
+}
+
+
+fun VolumeDto.toModel(): VolumeModel {
+    return VolumeModel(
+        volume = volume,
+        count = count,
+        chapters = chapters?.mapValues { it.value.toModel() }
+    )
+}
+
+
+fun ChapterAggregateDto.toModel(): ChapterAggregateModel {
+    return ChapterAggregateModel(
+        chapter = chapter,
+        id = id,
+        isUnavailable = isUnavailable,
+        others = others,
+        count = count
+    )
+}
+
+
+
+
+fun MangaAggregateResponseModel.toDto(): MangaAggregateResponseDto {
+    return MangaAggregateResponseDto(
+        result = null,
+        volumes = volumes?.mapValues { it.value.toDto() }
+    )
+}
+
+
+fun VolumeModel.toDto(): VolumeDto {
+    return VolumeDto(
+        volume = volume,
+        count = count,
+        chapters = chapters?.mapValues { it.value.toDto() }
+    )
+}
+
+
+fun ChapterAggregateModel.toDto(): ChapterAggregateDto {
+    return ChapterAggregateDto(
+        chapter = chapter,
+        id = id,
+        isUnavailable = isUnavailable,
+        others = others,
+        count = count
+    )
+}
+
+
+
+
+
