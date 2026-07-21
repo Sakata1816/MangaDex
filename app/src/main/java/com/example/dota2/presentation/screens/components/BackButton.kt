@@ -12,7 +12,8 @@ import androidx.compose.ui.Modifier
 @Composable
 fun BackButton(
     modifier: Modifier = Modifier,
-    onBack: () -> Unit) {
+    onBack: () -> Unit,
+) {
     IconButton(
         onClick = onBack,
         modifier = modifier

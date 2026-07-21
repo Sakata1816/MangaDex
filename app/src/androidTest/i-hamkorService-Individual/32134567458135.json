@@ -1,0 +1,11 @@
+
+{
+  "httpStatusCode": "504",
+  "responseType": "json",
+  "responseBody": {
+      "success": false,
+      "reason":"EXTERNAL_SERVICE_TIMEOUT",
+      "data": null,
+      "id":101504
+  }
+}

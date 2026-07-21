@@ -1,6 +1,8 @@
 package com.example.dota2.presentation.screens.mangaScreens
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -10,14 +12,23 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BrokenImage
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,12 +40,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import com.example.dota2.presentation.screens.components.BackButton
 import com.example.dota2.presentation.screens.components.ChapterSettingsSheet
+import com.example.dota2.presentation.screens.extensions.shimmerEffect
 import com.example.dota2.presentation.uiState.ReadMode
 import com.example.dota2.presentation.viewModel.screens.ReaderScreenViewModel
 
@@ -97,31 +113,31 @@ fun ReaderScreen(
 
 
 @Composable
-fun ReaderTopBar(onBack:()-> Unit) {
+fun ReaderTopBar(onBack: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.Black.copy(alpha = 0.7f))
-            .padding(12.dp),
+            .background(MaterialTheme.colorScheme.background.copy(0.9f)) // фон СНАЧАЛА — закрывает и статус-бар
+            .statusBarsPadding()                          // потом отступ под статус-бар
+            .padding(12.dp),                               // и уже визуальный padding контента
         verticalAlignment = Alignment.CenterVertically
     ) {
-
         BackButton(onBack = onBack)
     }
 }
 
-
 @Composable
 fun ReaderBottomBar(
     currentMode: ReadMode,
-    changeMode: (ReadMode)-> Unit,
+    changeMode: (ReadMode) -> Unit,
     currentPage: Int,
     totalPages: Int
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.Black.copy(alpha = 0.7f))
+            .background(MaterialTheme.colorScheme.background.copy(0.9f))
+            .navigationBarsPadding()                      // отступ под нав-бар/жест-зону
             .padding(12.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -136,16 +152,20 @@ fun ReaderBottomBar(
 
 
 @Composable
-fun VerticalReader(pages: List<String>){
+fun VerticalReader(pages: List<String>) {
     val listState = rememberLazyListState()
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         state = listState
     ) {
-        items(pages){page->
-
-            MangaPage(page)
-
+        items(
+            items = pages,
+            key = { it } // стабильный key = url страницы, важно для LazyColumn
+        ) { page ->
+            MangaPage(
+                pageUrl = page,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
 
     }
@@ -172,12 +192,54 @@ fun HorizontalReader(
 @Composable
 fun MangaPage(
     pageUrl: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    fallbackAspectRatio: Float = 0.707f
 ) {
-    AsyncImage(
+    SubcomposeAsyncImage(
         model = pageUrl,
         contentDescription = null,
-        modifier = modifier.fillMaxWidth(),
-        contentScale = ContentScale.FillWidth
-    )
+        contentScale = ContentScale.FillWidth,
+        modifier = modifier
+    ) {
+        val state = painter.state
+
+        when (state) {
+            is AsyncImagePainter.State.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(fallbackAspectRatio)
+                        .shimmerEffect()
+                )
+            }
+            is AsyncImagePainter.State.Error -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(fallbackAspectRatio)
+                        .background(Color(0xFF1A1A1A)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.BrokenImage,
+                        contentDescription = null,
+                        tint = Color.Gray
+                    )
+                }
+            }
+            else -> {
+                // Плавное появление картинки после загрузки — тоже приятный штрих
+                val alpha by animateFloatAsState(
+                    targetValue = 1f,
+                    animationSpec = tween(300),
+                    label = "imageFadeIn"
+                )
+                SubcomposeAsyncImageContent(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .graphicsLayer { this.alpha = alpha }
+                )
+            }
+        }
+    }
 }

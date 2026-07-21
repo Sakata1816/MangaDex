@@ -1,5 +1,6 @@
 package com.example.dota2.presentation.screens.mangaScreens
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,12 +9,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -39,6 +45,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,11 +56,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -76,6 +92,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -84,16 +101,14 @@ fun MangaDetailScreen(
     mangaId: String,
     navController: NavController,
     viewModel: MangaDetailScreenViewModel = hiltViewModel()
-){
+) {
 
-    LaunchedEffect(mangaId){
+    LaunchedEffect(mangaId) {
         viewModel.getMangaDetail(mangaId)
         viewModel.getMangaRelations(mangaId)
         viewModel.getMangaCovers(mangaId)
+        viewModel.getMangaChapters(mangaId)
     }
-
-    var current by remember { mutableStateOf(DetailScreen.Detail) }
-
 
     val tabs = listOf("Detail", "Chapters", "Covers")
     val pagerState = rememberPagerState { tabs.size }
@@ -102,279 +117,227 @@ fun MangaDetailScreen(
     val state = viewModel.state.collectAsState()
     val mangaModel = state.value
 
+    val detailListState = rememberLazyListState()
     val chapterListState = rememberLazyListState()
+    val coverListState = rememberLazyListState()
 
+    // --- Collapsing header logic ---
+    val density = LocalDensity.current
+    val maxHeaderHeightDp = 320.dp
+    val maxHeaderHeightPx = with(density) { maxHeaderHeightDp.toPx() }
+
+    var headerOffsetPx by remember { mutableStateOf(0f) }
+
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                // Скролл вверх — сначала схлопываем шапку
+                if (available.y < 0) {
+                    val previous = headerOffsetPx
+                    headerOffsetPx = (headerOffsetPx + available.y).coerceIn(-maxHeaderHeightPx, 0f)
+                    val consumed = headerOffsetPx - previous
+                    return Offset(0f, consumed)
+                }
+                return Offset.Zero
+            }
+
+            override fun onPostScroll(
+                consumed: Offset,
+                available: Offset,
+                source: NestedScrollSource
+            ): Offset {
+                // Список долистал до верха, но ещё есть скролл вниз — разворачиваем шапку
+                if (available.y > 0) {
+                    val previous = headerOffsetPx
+                    headerOffsetPx = (headerOffsetPx + available.y).coerceIn(-maxHeaderHeightPx, 0f)
+                    return Offset(0f, headerOffsetPx - previous)
+                }
+                return Offset.Zero
+            }
+        }
+    }
+
+    val headerHeightDp = with(density) {
+        (maxHeaderHeightPx + headerOffsetPx).coerceIn(0f, maxHeaderHeightPx).toDp()
+    }
+
+    val collapseFraction = (-headerOffsetPx / maxHeaderHeightPx).coerceIn(0f, 1f)
+    val topBarColor = lerp(Color.Transparent, MaterialTheme.colorScheme.background, collapseFraction)
+    val iconTint = lerp(Color.White, MaterialTheme.colorScheme.onBackground, collapseFraction)
+    // --- конец логики шапки ---
 
     Box(modifier = Modifier.fillMaxSize()) {
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-            state = chapterListState) {
+        Column(modifier = Modifier.fillMaxSize()) {
 
-            item {
+            // Шапка: контейнер задаёт видимую высоту (сжимается),
+            // внутри — контент фиксированной высоты, обрезается сверху при сжатии
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(headerHeightDp)
+                    .clipToBounds(),
+                contentAlignment = Alignment.BottomCenter
+            ) {
                 MangaHeader(
                     manga = mangaModel.manga,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(maxHeaderHeightDp)
                 )
             }
 
-            item {
-                ScrollableTabRow(
-                    selectedTabIndex = pagerState.currentPage,
-                    edgePadding = 16.dp,
-                    divider = {}
-                ) {
-                    tabs.forEachIndexed { index, title->
-                        Tab(
-                            selected = pagerState.currentPage == index,
-                            onClick = {
-                                // 👇 При нажатии на таб — анимированно скроллим
-                                scope.launch {
-                                    pagerState.animateScrollToPage(index)
-                                }
-                            },
-                            text = {
-                                Text(
-                                    text = title,
-                                    style = MaterialTheme.typography.labelLarge
-                                )
-                            },
-                            selectedContentColor = MaterialTheme.colorScheme.primary,
-                            unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
+            // Табы — обычный composable в Column, НЕ внутри LazyColumn.
+            // Они всегда идут сразу после шапки, поэтому визуально "прилипают"
+            // под топбаром, когда шапка полностью схлопнулась.
+            ScrollableTabRow(
+                selectedTabIndex = pagerState.currentPage,
+                edgePadding = 16.dp,
+                divider = {}
+            ) {
+                tabs.forEachIndexed { index, title ->
+                    Tab(
+                        selected = pagerState.currentPage == index,
+                        onClick = { scope.launch { pagerState.animateScrollToPage(index) } },
+                        text = { Text(text = title, style = MaterialTheme.typography.labelLarge) },
+                        selectedContentColor = MaterialTheme.colorScheme.primary,
+                        unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             }
 
-           item {
-               HorizontalPager(
-                   state = pagerState,
-                   modifier = Modifier.fillMaxSize()
-               ) { page ->
-                   when(page) {
-                       0 -> LazyColumn(state = chapterListState) {
-                           item {
-                               MangaDetail(
-                                   state = state.value,
-                                   onClick = { navController.navigate(NavRoutes.Reader.getPath(it)) },
-                                   onTagClick = { type, id, title ->
-                                       navController.navigate(NavRoutes.MangaFilterList.getPath(type, id, title))
-                                   },
-                                   onDetailRetry = {viewModel.getMangaDetail(mangaId)},
-                                   onRelationsLoadMore = {viewModel.getMangaRelations(mangaId)}
-                               )
-                           }
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) { page ->
+                when (page) {
 
-                       }
-                       1 -> LazyColumn(state = chapterListState) {
-
-                       }
-                       2 -> LazyColumn(state = chapterListState) {
-                           item {
-                               CoverList(
-                                   state = mangaModel,
-                                   onRetry = { viewModel.getMangaCovers(mangaId) }
-                               )
-                           }
-
-                       }
-                   }
-
-               }
-           }
-
-            item {
-                Column {
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    0 -> LazyColumn(
+                        state = detailListState,
+                        modifier = Modifier.nestedScroll(nestedScrollConnection)
                     ) {
-                        OutlinedButton(
-                            onClick = {
-                                current = DetailScreen.Chapters
-                                viewModel.getMangaChapters(mangaId) },
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text("Chapters")
-                        }
-
-                        OutlinedButton(
-                            onClick = {
-                                current = DetailScreen.Covers
-                                viewModel.getMangaCovers(mangaId)
-                                      },
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text("Covers")
+                        item {
+                            MangaDetail(
+                                state = state.value,
+                                onClick = { navController.navigate(NavRoutes.Reader.getPath(it)) },
+                                onTagClick = { type, id, title ->
+                                    navController.navigate(NavRoutes.MangaFilterList.getPath(type, id, title))
+                                },
+                                onDetailRetry = { viewModel.getMangaDetail(mangaId) },
+                                onRelationsLoadMore = { viewModel.getMangaRelations(mangaId) }
+                            )
                         }
                     }
 
-                }
-            }
-
-            item { Spacer(Modifier.height(12.dp)) }
-
-            if(current == DetailScreen.Chapters){
-                // Чаптеры инлайним здесь же:
-                items(mangaModel.chapters) { chapter -> ChapterCard(chapter, onClick = { navController.navigate(NavRoutes.Reader.getPath(it))}) }
-
-                if (mangaModel.chaptersLoading){
-                    item {
-                        Box(Modifier.fillMaxWidth().padding(20.dp), Alignment.Center) {
-                            CircularProgressIndicator()
+                    1 -> LazyColumn(
+                        state = chapterListState,
+                        modifier = Modifier.nestedScroll(nestedScrollConnection)
+                    ) {
+                        items(mangaModel.chapters) { chapter ->
+                            ChapterCard(
+                                chapter,
+                                onClick = { navController.navigate(NavRoutes.Reader.getPath(it)) }
+                            )
                         }
-                    }
-                }
 
-                if (mangaModel.chapters.isEmpty()){
-                    item{
-                        Box(Modifier.fillMaxWidth().padding(20.dp), Alignment.Center) {
-                            Text("Empty list")
+                        if (mangaModel.chaptersLoading) {
+                            item {
+                                Box(Modifier.fillMaxWidth().padding(20.dp), Alignment.Center) {
+                                    CircularProgressIndicator()
+                                }
+                            }
                         }
-                    }
-                }
 
-                mangaModel.chaptersError?.let { error->
-                    item{
-                        ErrorBlock(
-                            error = error,
-                            onRetry = {viewModel.getMangaChapters(mangaId)},
-                            modifier = Modifier.padding(16.dp),
-                            content = {
-                                Text(
-                                    text = "Ой, что-то пошло не так...",
+                        if (mangaModel.chapters.isEmpty()) {
+                            item {
+                                Box(Modifier.fillMaxWidth().padding(20.dp), Alignment.Center) {
+                                    Text("Empty list")
+                                }
+                            }
+                        }
+
+                        mangaModel.chaptersError?.let { error ->
+                            item {
+                                ErrorBlock(
+                                    error = error,
+                                    onRetry = { viewModel.getMangaChapters(mangaId) },
+                                    modifier = Modifier.padding(16.dp),
+                                    content = { Text(text = "Ой, что-то пошло не так...") }
                                 )
                             }
-                        )
+                        }
+                    }
+
+                    2 -> LazyColumn(
+                        state = coverListState,
+                        modifier = Modifier.nestedScroll(nestedScrollConnection)
+                    ) {
+                        item {
+                            CoverList(
+                                state = mangaModel,
+                                onRetry = { viewModel.getMangaCovers(mangaId) }
+                            )
+                        }
                     }
                 }
-            }else if (current == DetailScreen.Covers){
-
-                item{
-
-                    CoverList(
-                        state = mangaModel,
-                        onRetry = { viewModel.getMangaCovers(mangaId) }
-                    )
-                }
-                }else{
-
-                item {
-
-                    MangaDetail(
-                        state = state.value,
-                        onClick = { navController.navigate(NavRoutes.Reader.getPath(it)) },
-                        onTagClick = { type, id, title ->
-                            navController.navigate(NavRoutes.MangaFilterList.getPath(type, id, title))
-                        },
-                        onDetailRetry = {viewModel.getMangaDetail(mangaId)},
-                        onRelationsLoadMore = {viewModel.getMangaRelations(mangaId)}
-                    )
-                }
             }
-
-
         }
 
-
+        // Топбар: back + share, слитно со статус-баром, прозрачный -> сплошной при схлопывании
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background)
-                .height(56.dp)
+                .background(topBarColor)
+                .windowInsetsPadding(WindowInsets.statusBars)
+                .height(48.dp)
                 .padding(horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BackButton(
-                onBack = { navController.popBackStack() }
-            )
-
+            BackButton(onBack = { navController.popBackStack() })
             Spacer(Modifier.weight(1f))
-
             IconButton(onClick = {}) {
-                Icon(Icons.Default.Share, null)
+                Icon(Icons.Default.Share, null, tint = iconTint)
             }
         }
-
-
     }
-
-
 
     LaunchedEffect(chapterListState) {
         snapshotFlow {
             val layoutInfo = chapterListState.layoutInfo
             val totalItems = layoutInfo.totalItemsCount
             val lastVisible = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: return@snapshotFlow false
-            lastVisible >= totalItems - 5
+            totalItems > 0 && lastVisible >= totalItems - 5
         }
             .distinctUntilChanged()
             .filter { it }
-            .collect {
-                when (current) {
-                    DetailScreen.Detail ->viewModel.getMangaDetail(mangaId)
-                    DetailScreen.Chapters -> viewModel.getMangaChapters(mangaId)
-                    DetailScreen.Covers -> viewModel.getMangaCovers(mangaId)
-                }
-            }
+            .collect { viewModel.getMangaChapters(mangaId) }
+    }
+
+    LaunchedEffect(coverListState) {
+        snapshotFlow {
+            val layoutInfo = coverListState.layoutInfo
+            val totalItems = layoutInfo.totalItemsCount
+            val lastVisible = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: return@snapshotFlow false
+            totalItems > 0 && lastVisible >= totalItems - 5
+        }
+            .distinctUntilChanged()
+            .filter { it }
+            .collect { viewModel.getMangaCovers(mangaId) }
     }
 }
 
-
-@Composable
-fun ChapterList(
-    mangaState: MangaDetailScreenState
-){
-
-    items(mangaModel.chapters) { chapter -> ChapterCard(chapter, onClick = { navController.navigate(NavRoutes.Reader.getPath(it))}) }
-
-    if (mangaModel.chaptersLoading){
-        item {
-            Box(Modifier.fillMaxWidth().padding(20.dp), Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        }
-    }
-
-    if (mangaModel.chapters.isEmpty()){
-        item{
-            Box(Modifier.fillMaxWidth().padding(20.dp), Alignment.Center) {
-                Text("Empty list")
-            }
-        }
-    }
-
-    mangaModel.chaptersError?.let { error->
-        item{
-            ErrorBlock(
-                error = error,
-                onRetry = {viewModel.getMangaChapters(mangaId)},
-                modifier = Modifier.padding(16.dp),
-                content = {
-                    Text(
-                        text = "Ой, что-то пошло не так...",
-                    )
-                }
-            )
-        }
-    }
-
-}
 
 
 @Composable
 fun MangaHeader(
     manga: MangaModel?,
-
+    modifier: Modifier = Modifier
 ){
         Box(
-            modifier = Modifier.fillMaxWidth()
-                .height(300.dp)
+            modifier = modifier
         ){
-
                 AsyncImage(
                     model = manga?.getCoverUrl(),
                     contentDescription = null,
@@ -406,7 +369,7 @@ fun MangaHeader(
                             top = 72.dp,
                             bottom = 24.dp
                         ),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.Bottom
                 ) {
                     AsyncImage(
                         model = manga?.getCoverUrl(),
@@ -719,7 +682,3 @@ fun CoverCard(cover: MangaVolumeCovers) {
 }
 
 
-enum class DetailScreen{
-    Detail,
-    Chapters, Covers
-}

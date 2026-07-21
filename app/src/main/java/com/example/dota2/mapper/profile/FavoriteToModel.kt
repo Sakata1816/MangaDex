@@ -6,6 +6,7 @@ import com.example.dota2.domain.model.profile.UserFavoriteMangaModel
 import com.example.dota2.domain.model.server.MangaAttributesModel
 import com.example.dota2.domain.model.server.MangaModel
 import com.example.dota2.domain.model.server.RelationshipModel
+import kotlin.to
 
 fun UserFavoriteMangaModel.toUi(): MangaModel {
     return MangaModel(
@@ -39,7 +40,11 @@ fun UserFavoriteMangaModel.toUi(): MangaModel {
             id = "",
             type = "cover_art",
             related = null,
-            attributes = coverArt
+            attributes = coverFileName?.let {
+                mapOf(
+                    "fileName" to it
+                )
+            }
         ))
     )
 }
@@ -58,9 +63,10 @@ fun MangaModel.toUi(
 
         altTitles = attributes?.altTitles,
 
-        coverArt = relationships
+        coverFileName = relationships
             ?.firstOrNull { it.type == "cover_art" }
-            ?.attributes as? Map<String, String>,
+            ?.attributes
+            ?.get("fileName") as? String,
 
         description = attributes?.description,
 

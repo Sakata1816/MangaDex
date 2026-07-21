@@ -1,0 +1,242 @@
+
+{
+  "httpStatusCode": "200",
+  "responseType": "json",
+  "responseBody": {
+    "success": true,
+    "reason": null,
+    "data": [
+      {
+        "id": "CCD0F10C95A71A2FE05376340F0A6933",
+        "founderIndividual": null,
+        "founderLegal": {
+          "id": null,
+          "tin": "313135100",
+          "shortName": "\"O‘ZBEKISTON RESPUBLIKASI IQTISODIYOT VA MOLIYA VAZIRLIGI\" DM",
+          "name": "\"O‘ZBEKISTON RESPUBLIKASI IQTISODIYOT VA MOLIYA VAZIRLIGI\" DAVLAT MUASSASASI",
+          "registrationDate": "17.07.1995",
+          "registrationNumber": "14",
+          "reregistrationDate": "27.02.2023",
+          "businessFund": 0,
+          "businessType": 4,
+          "kfs": 200,
+          "oked": "84111",
+          "opf": 270,
+          "soato": 1726266,
+          "soogu": "06173",
+          "sooguRegistrator": "70414",
+          "status": 0,
+          "statusUpdated": null,
+          "taxMode": 1,
+          "taxpayerType": 2,
+          "vatNumber": 326030243690,
+          "liquidationDate": null,
+          "liquidationReason": null,
+          "businessStructure": 19,
+          "created": "23.05.2021",
+          "updated": "26.07.2024",
+          "regCountry": 860,
+          "founderSharePercent": 74.536944,
+          "founderShareSum": 11992986555,
+          "stateTin": null,
+          "countTotalFounders": 108,
+          "director": {
+            "lastName": "IVANOV",
+            "firstName": "JAKHONGIR",
+            "middleName": "IVANOVICH",
+            "gender": 1,
+            "nationality": "44",
+            "citizenship": "860",
+            "passportSeries": "AD",
+            "passportNumber": "1234567",
+            "pinfl": "31503809876543",
+            "tin": "207064163",
+            "birthDate": "19.10.1964",
+            "individualId": null,
+            "countryCode": null
+          },
+          "accountant": {
+            "lastName": "IVANOV",
+            "firstName": "JAKHONGIR",
+            "middleName": "IVANOVICH",
+            "gender": 1,
+            "nationality": "44",
+            "citizenship": "860",
+            "passportSeries": "AD",
+            "passportNumber": "1234567",
+            "pinfl": "31503809876543",
+            "tin": "207064163",
+            "birthDate": "12.03.1974",
+            "individualId": null,
+            "countryCode": null
+          },
+          "businessStructureDetail": {
+            "code": "19",
+            "name": "Бюджет ташкилоти",
+            "name_ru": "Госбюджетная организация",
+            "name_uz_cyrl": "Бюджет ташкилоти",
+            "name_uz_latn": "Бюджет ташкилоти"
+          },
+          "statusDetail": {
+            "code": "0",
+            "name": "Active with Tax Liabilities",
+            "name_ru": "Действующее и имеющее налоговые обязательства",
+            "name_uz_cyrl": "Фаолият кўрсатаётган ҳамда солиқ мажбуриятларига эга",
+            "name_uz_latn": "Faoliyat ko'rsatayotgan hamda soliq majburiyatlariga ega bo'lgan",
+            "group": "ACTIVE"
+          },
+          "sooguDetail": {
+            "code": "06173",
+            "name": "Executive Office of the Cabinet of Ministers of the Republic of Uzbekistan",
+            "name_ru": "Исполнительный аппарат Кабинета Министров Республики Узбекистан",
+            "name_uz_cyrl": "Ўзбeкистoн Reспубликaси Вaзирлaр Мaҳкaмaсининг Ижрo этувчи aппaрaти",
+            "name_uz_latn": "O'zbekiston Respublikasi Vazirlar Mahkamasining Ijro etuvchi apparati",
+            "okpo": "00031070"
+          },
+          "activityTypes": [
+            {
+              "code": "100",
+              "parentCode": "0",
+              "name": "Budjet tashkilotlari",
+              "name_ru": "Бюджетные организации ",
+              "name_uz_cyrl": "Бюджет ташкилотлари",
+              "name_uz_latn": "Budjet tashkilotlari",
+              "level_id": 1,
+              "id": "E8DEAD4327F44067E053043318AC0687"
+            }
+          ],
+          "opfDetail": {
+            "code": "270",
+            "name": null,
+            "name_ru": "УЧРЕЖДЕНИЕ",
+            "name_uz_cyrl": null,
+            "name_uz_latn": "MUASSASA"
+          },
+          "okedDetail": {
+            "code": "84111",
+            "name": "DАVLАT HOKIMIYATI VА BOSHQАRUVINING RESPUBLIKА IDORАLАRI FАOLIYATI",
+            "name_ru": "ДЕЯТЕЛЬНОСТЬ РЕСПУБЛИКАНСКИХ ОРГАНОВ ГОСУДАРСТВЕННОЙ ВЛАСТИ И УПРАВЛЕНИЯ",
+            "name_uz_cyrl": "ДАВЛАТ ҲОКИМИЯТИ ВА БОШҚАРУВИНИНГ РЕСПУБЛИКА ИДОРАЛАРИ ФАОЛИЯТИ",
+            "name_uz_latn": "DАVLАT HOKIMIYATI VА BOSHQАRUVINING RESPUBLIKА IDORАLАRI FАOLIYATI",
+            "section": "O",
+            "name_short_ru": null,
+            "name_short_uz_cyrl": null,
+            "name_short_uz_latn": null,
+            "pkm275": "0",
+            "employee_limit_mf": null,
+            "employee_limit_lf": null
+          },
+          "countryDetail": {
+            "shortName_en": "Uzbekistan",
+            "shortName_ru": "Узбекистан",
+            "shortName_uz_cyrl": "Ўзбекистон",
+            "shortName_uz_latn": "O'zbekiston",
+            "fullName_en": "the Republic of Uzbekistan",
+            "fullName_ru": "Республика Узбекистан",
+            "fullName_uz_cyrl": "Ўзбекистон Республикаси",
+            "fullName_uz_latn": "O'zbekiston Respublikasi",
+            "numericCode": "860",
+            "alpha2Code": "UZ",
+            "alpha3Code": "UZB"
+          }
+        },
+        "founderContact": null,
+        "founderAddress": {
+          "id": "3CEDE5B475C647B583E877B2B1E57178",
+          "countryCode": 860,
+          "region": {
+            "code": 1726,
+            "name": "Tashkent city",
+            "name_ru": "город Ташкент",
+            "name_uz_cyrl": "Тошкент шаҳри",
+            "name_uz_latn": "Toshkent shahri",
+            "administrativeCenterCode": null
+          },
+          "district": {
+            "code": 1726266,
+            "name": "Yunusabad district",
+            "name_ru": "Юнусабадский район",
+            "name_uz_cyrl": "Юнусобод тумани",
+            "name_uz_latn": "Yunusobod tumani",
+            "administrativeCenterCode": null,
+            "regionCode": 1726266,
+            "region_id": 26,
+            "regionId": 26,
+            "districtId": 3,
+            "districts_id": 3,
+            "active": null
+          },
+          "sectorCode": 4,
+          "village": null,
+          "streetName": "Oloy ko'chasi",
+          "house": null,
+          "flat": null,
+          "soatoCode": 1726266,
+          "postcode": "100000",
+          "taxDetails": null
+        },
+        "budgetPercent": 100,
+        "budgetLevelId": 1
+      },
+      {
+        "id": "CCD0F1098AC51A2FE05376340F0A6933",
+        "founderIndividual": {
+          "lastName": "IVANOV",
+          "firstName": "JAKHONGIR",
+          "middleName": "IVANOVICH",
+          "gender": 2,
+          "nationality": "44",
+          "citizenship": "860",
+          "passportSeries": "AB",
+          "passportNumber": "1234567",
+          "pinfl": "31503809876543",
+          "tin": "313135100",
+          "birthDate": null,
+          "founderSharePercent": 0.010407,
+          "founderShareSum": 1674495,
+          "countTotalFounders": 2,
+          "liveState": "0"
+        },
+        "founderLegal": null,
+        "founderContact": null,
+        "founderAddress": {
+          "id": "51746194",
+          "countryCode": 860,
+          "region": {
+            "code": 1714,
+            "name": "Namangan region",
+            "name_ru": "Наманганская область",
+            "name_uz_cyrl": "Наманган вилояти",
+            "name_uz_latn": "Namangan viloyati",
+            "administrativeCenterCode": null
+          },
+          "district": {
+            "code": 1714212,
+            "name": "Namangan region",
+            "name_ru": "Наманганский район",
+            "name_uz_cyrl": "Наманган тумани",
+            "name_uz_latn": "Namangan tumani",
+            "administrativeCenterCode": null,
+            "regionCode": 1714212,
+            "region_id": 14,
+            "regionId": 14,
+            "districtId": 9,
+            "districts_id": 9,
+            "active": null
+          },
+          "sectorCode": 4,
+          "village": "3434",
+          "streetName": "ТОШБУЛОҚ ШФЙ, КИЧИК ТОШБУЛОҚ МФЙ, ЖАР КЎЧАСИ,  uy:23",
+          "house": null,
+          "flat": null,
+          "soatoCode": 1714212,
+          "postcode": null,
+          "taxDetails": null
+        },
+        "budgetPercent": 0,
+        "budgetLevelId": null
+      }
+    ],
+    "id": 16768004
+  }
+}

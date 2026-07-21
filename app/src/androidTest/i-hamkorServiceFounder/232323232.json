@@ -1,0 +1,11 @@
+
+{
+  "httpStatusCode": "504",
+  "responseType": "json",
+  "responseBody": {
+  "success": false,
+  "reason": "504 Gateway Timeout",
+  "data": null,
+  "id": 71151903
+}
+}

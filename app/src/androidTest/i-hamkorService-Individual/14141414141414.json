@@ -1,0 +1,11 @@
+
+{
+  "httpStatusCode": "404",
+  "responseType": "json",
+  "responseBody": {
+      "success": false,
+      "reason": "INDIVIDUAL_NOT_FOUND",
+      "data": null,
+      "id": 40401
+  }
+}

@@ -42,16 +42,14 @@ fun MangaCardWithMenu(
 
     Box {
         // 🔹 Твоя карточка / контент
-        Row(
-            horizontalArrangement = Arrangement.End
-        ) {
+
             IconButton(onClick = { showSheet = true }) {
                 Icon(
                     imageVector = Icons.Default.MoreVert,
                     contentDescription = "Меню"
                 )
             }
-        }
+
 
         // 🔹 Сам Bottom Sheet
         if (showSheet) {

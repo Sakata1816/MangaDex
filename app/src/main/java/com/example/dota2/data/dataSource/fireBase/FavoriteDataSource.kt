@@ -1,5 +1,6 @@
 package com.example.dota2.data.dataSource.fireBase
 
+import android.util.Log
 import com.example.dota2.data.remote.auth.dto.UserFavoriteMangaDto
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,7 +27,11 @@ class FavoriteDataSource @Inject constructor(
             .get()
             .await()
             .documents
-            .mapNotNull { it.toObject(UserFavoriteMangaDto::class.java) }
+            .mapNotNull {
+                val dto = it.toObject(UserFavoriteMangaDto::class.java)
+                Log.d("Firestore", "Parsed dto = $dto")
+                dto
+            }
     }
 
 

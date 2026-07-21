@@ -88,16 +88,18 @@ class FavoritesViewModel @Inject constructor(
 
     fun syncFromFirestore(){
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true, error = null) }
+            _state.update { it.copy(
+                isRefreshing = true,
+                error = null) }
             repository.syncFromFirestore().fold(
                 onSuccess = {
                     _state.update { it.copy(
-                        isLoading = false
+                        isRefreshing = false
                     ) }
                 },
                 onFailure = {Throwable->
                     _state.update { it.copy(
-                        isLoading = false,
+                        isRefreshing = false,
                         error = Throwable.message?:"error on sync..")
                     }
                 }

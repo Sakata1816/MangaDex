@@ -1,0 +1,148 @@
+
+
+{
+  "httpStatusCode": "200",
+  "responseType": "json",
+  "responseBody": {
+    "success": true,
+    "reason": null,
+    "data": {
+      "id": 239311,
+      "formId": 1,
+      "tin": "518100667",
+      "pinfl": 32312743080058,
+      "phoneNumber": 998773635800,
+      "formName": {
+        "ru": "ИНДИВИДУАЛЬНЫЙ ПРЕДПРИНИМАТЕЛЬ",
+        "uz": "YAKKA TARTIBDAGI TADBIRKOR",
+        "en": "INDIVIDUAL ENTREPRENEUR"
+      },
+      "registrationId": "414884",
+      "registrationDate": "21.09.2017",
+      "beginDate": "21.09.2017",
+      "endDate": "01.01.3000",
+      "liquidationDate": null,
+      "suspensionDate": null,
+      "activityTypeId": 205,
+      "activityTypeName": {
+        "ru": "Розничная торговля продовольственными и непродовольственными товарами",
+        "uz": "Oziq-ovqat va nooziq-ovqat tovarlari bilan chakana savdo qilish",
+        "en": "Retail trade of food and non-food products"
+      },
+      "entrepreneurExtraActivityTypes": [],
+      "entrepreneurshipAddress": {
+        "soatoCode": 1703211,
+        "regionId": 3,
+        "districtId": 11,
+        "address": "Andijon viloyati, Jalaquduq tumani",
+        "villageCode": "704"
+      },
+      "entrepreneurshipDirector": {
+        "middleName": "IVANOVICH",
+        "firstName": "Test",
+        "lastName": "IVANOV"
+      },
+      "entrepreneurshipContact": {
+        "mobilePhoneNumber": "773635800",
+        "cellPhoneNumber": null
+      },
+      "status": {
+        "code": 1,
+        "name": {
+          "uz": "Faoliyat ko'rsatayapti"
+        }
+      },
+      "certificateDocNumber": "414884",
+      "isVatTaxpayer": 1,
+      "vatNumber": "303110000599",
+      "vatStatusId": 1,
+      "vatStatusName": "ACTIVE",
+      "vatRegDate": "07.02.2019 00:00:00",
+      "taxMode": 5,
+      "taxModeName": {
+        "ru": "Плательщик НДС",
+        "uz": "QQS soliq to'lovchi",
+        "en": "VAT taxpayer"
+      },
+      "taxpayerType": 2,
+      "taxpayerTypeName": {
+        "ru": "ГНУ",
+        "uz": "DSB",
+        "en": "STA"
+      },
+      "companyBanks": [
+        {
+          "id": 193403594,
+          "branchCode": "00653",
+          "account": "20218*******0001",
+          "state": 1,
+          "stateName": "Мижознинг аризасига асосан асосий ҳисобварақ бошқа банкка ўзгартирилганлиги сабабли ёпилган",
+          "openDate": "2018-01-23 00:00:00",
+          "closeDate": null,
+          "attribute": 1,
+          "reasonCode": null,
+          "tin": "5*****7",
+          "bankName": "ЖАЛОЛКУДУК Т., АТ ХАЛК БАНКИ ЖАЛОЛКУДУК ФИЛИАЛИ",
+          "currencyCode": "000"
+        },
+        {
+          "id": 193831172,
+          "branchCode": "00977",
+          "account": "202******02110002",
+          "state": 1,
+          "stateName": "Мижознинг аризасига асосан асосий ҳисобварақ бошқа банкка ўзгартирилганлиги сабабли ёпилган",
+          "openDate": "2018-01-23 00:00:00",
+          "closeDate": null,
+          "attribute": 2,
+          "reasonCode": null,
+          "tin": "50****467",
+          "bankName": "ЖАЛОЛКУДУК Т., ЧЕТ ЭЛ КАПИТАЛИ ИШТИРОКИДАГИ \"HAMKORBANK\" АТБ ЖАЛАКУДУК ФИЛИАЛИ",
+          "currencyCode": "000"
+        }
+      ],
+      "individualActSverka": [
+        {
+          "na2Code": 100,
+          "na2Name": "Айланмадан олинадиган солиқ",
+          "oprDate": "2024-05-02 00:00:00",
+          "operName": "02.05.2024 йилда 5003 туманга кўчиб кетган (переплата)",
+          "termDate": "2024-05-02 00:00:00",
+          "nachislenN": 9000000,
+          "umenshenasN": 0,
+          "uplochN": 0,
+          "vozvrat": 0,
+          "saldoTekN": 0,
+          "pereplata": 0,
+          "nachislenP": 0,
+          "periodP": null,
+          "uplochP": 0,
+          "saldoTekP": 0,
+          "shtraf": 0,
+          "year": 2024,
+          "xar": 8
+        },
+        {
+          "na2Code": 38,
+          "na2Name": "YaTMF bilan shug'ullanuvchi Jis-y shaxs. Sug'urta badali",
+          "oprDate": "2024-05-02 00:00:00",
+          "operName": "02.05.2024 йилда 5003 туманга кўчиб кетган (недоимка)",
+          "termDate": "2024-05-02 00:00:00",
+          "nachislenN": 0,
+          "umenshenasN": 2339233.21,
+          "uplochN": 0,
+          "vozvrat": 0,
+          "saldoTekN": 0,
+          "pereplata": 0,
+          "nachislenP": 0,
+          "periodP": null,
+          "uplochP": 0,
+          "saldoTekP": 878032.97,
+          "shtraf": 0,
+          "year": 2024,
+          "xar": 8
+        }
+      ]
+    },
+    "id": 11848492
+  }
+}

@@ -61,6 +61,7 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .statusBarsPadding()
             .background(MaterialTheme.colorScheme.background)
     ) {
 
@@ -272,6 +273,7 @@ private fun MangaItem(
     manga: MangaModel,
     onClick: () -> Unit
 ) {
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -317,31 +319,13 @@ private fun MangaItem(
                 overflow = TextOverflow.Ellipsis
             )
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(5.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                Text(
-                    text = manga.type.orEmpty(),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 13.sp
-                )
-
                 manga.attributes?.year?.let {
-
-                    Text(
-                        text = "•",
-                        color = MaterialTheme.colorScheme.outline
-                    )
-
                     Text(
                         text = it.toString(),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 13.sp
                     )
                 }
-            }
         }
     }
 }

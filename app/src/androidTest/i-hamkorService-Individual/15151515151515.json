@@ -1,0 +1,11 @@
+
+{
+  "httpStatusCode": "500",
+  "responseType": "json",
+  "responseBody": {
+      "success": false,
+      "reason":"Internal_SERVICE_ERROR",
+      "data": null,
+      "id":101503
+  }
+}

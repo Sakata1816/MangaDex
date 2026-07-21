@@ -1,0 +1,13 @@
+
+{
+  "httpStatusCode": "500",
+  "responseType": "json",
+  "responseBody": {
+  "code": 500,
+  "errors": [
+    "500 Internal Server Error"
+  ],
+  "errorCode": "INTERNAL_ERROR",
+  "result": null
+}
+}

@@ -40,7 +40,7 @@ fun MainRoot() {
                 icon = Icons.Default.Home
             ),
             BottomBarItem(
-                route = NavRoutes.Catalog.route,
+                route = NavRoutes.CatalogGraph.route,
                 title = "Catalog",
                 icon = Icons.Default.Search
             ),
@@ -88,7 +88,7 @@ fun MainRoot() {
 
         AppNavGraph(
             navController = navController,
-            modifier = Modifier.padding(padding)
+            modifier = Modifier.padding(bottom = padding.calculateBottomPadding())
         )
 
     }

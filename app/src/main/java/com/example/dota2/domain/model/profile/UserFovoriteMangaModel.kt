@@ -7,7 +7,7 @@ data class UserFavoriteMangaModel(
     val userStatus:MangaStatus,
     val title: Map<String, String>?,
     val altTitles: List<Map<String, String>>?,
-    val coverArt: Map<String, String>?,
+    val coverFileName: String?,
     val description: Map<String, String>?,
     val lastVolume: String?,
     val lastChapter: String?,

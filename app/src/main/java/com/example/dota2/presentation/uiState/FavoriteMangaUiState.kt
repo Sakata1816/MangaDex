@@ -9,5 +9,6 @@ data class FavoriteMangaUiState(
     val droppedList: List<UserFavoriteMangaModel> = emptyList(),
     val plannedList: List<UserFavoriteMangaModel> = emptyList(),
     val isLoading: Boolean = false,
+    val isRefreshing: Boolean = false,
     val error: String? = null
 )

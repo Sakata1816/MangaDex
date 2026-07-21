@@ -13,7 +13,7 @@ import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 
 @Database(entities = [FavoriteMangaEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {

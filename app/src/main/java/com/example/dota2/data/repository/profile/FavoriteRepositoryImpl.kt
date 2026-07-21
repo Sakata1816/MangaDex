@@ -1,5 +1,6 @@
 package com.example.dota2.data.repository.profile
 
+import android.util.Log
 import com.example.dota2.data.dataSource.fireBase.AuthDataSource
 import com.example.dota2.data.dataSource.fireBase.FavoriteDataSource
 import com.example.dota2.data.dataSource.local.LocalDataSource
@@ -34,8 +35,10 @@ class FavoriteRepositoryImpl @Inject constructor(
 
 
     override suspend fun syncFromFirestore(): Result<Unit> {
+        Log.d("Sync", "syncFromFirestore() called")
         return try {
             val remoteList = fireBase.fetchAll()
+            Log.d("Sync", "remote list = ${remoteList}")
 
             if (remoteList == null) {
                 return Result.failure(Exception("Remote data is null"))
@@ -44,6 +47,7 @@ class FavoriteRepositoryImpl @Inject constructor(
             local.syncAll(remoteList.map { it.toModel().toEntity(currentUserId?:"User not logged in" ) }, currentUserId?:"User not logged in" )
             Result.success(Unit)
         }catch (e: Exception){
+            Log.e("Sync", "syncFromFirestore failed", e)
             Result.failure(e)
         }
     }

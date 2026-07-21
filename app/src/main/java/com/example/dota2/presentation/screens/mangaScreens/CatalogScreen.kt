@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -78,7 +79,9 @@ fun CatalogScreen(
     }
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding(),
         topBar = {
             CatalogTopBar(
                 state = state,
@@ -102,7 +105,7 @@ fun CatalogScreen(
         ) {
             items(state.manga) { manga ->
                 val status = favoriteMap[manga.id]?.userStatus ?: MangaStatus.NONE
-                FavoriteMangaCard(
+                FavoriteMangaRow(
                     manga,
                     onClick = { navController.navigate(NavRoutes.MangaDetail.getPath(it)) },
                     currentStatus = status,

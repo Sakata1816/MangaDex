@@ -1,0 +1,2213 @@
+{
+  "info": {
+    "_postman_id": "83ef612f-fc44-49cf-b631-a1094cf05e2a",
+    "name": "Onboarding_EX",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24922823"
+  },
+  "item": [
+    {
+      "name": "myid",
+      "item": [
+        {
+          "name": "/auth/clients/access-token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"client_id\": \"your_client_id\",\r\n  \"client_secret\": \"your_client_secret\"\r\n}"
+            },
+            "url": {
+              "raw": "{{myid}}/api/v1/auth/clients/access-token",
+              "host": [
+                "{{myid}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "clients",
+                "access-token"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{myid}}/api/v1/auth/clients/access-token",
+                  "host": [
+                    "{{myid}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "clients",
+                    "access-token"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"access_token\": \"eyJhbGci...\", // Токен доступа\n  \"expires_in\": 3600, // Срок действия токена в секундах\n  \"token_type\": \"Bearer\" // Тип токена\n}"
+            }
+          ]
+        },
+        {
+          "name": "/sdk/sessions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"phone_number\": 998910203344, // Номер телефона в формате 998910203344 или null\r\n  \"birth_date\": \"1985-10-31\", // Дата рождения в формате ISO\r\n  \"is_resident\": null, // Является ли пользователь резидентом (default: true)\r\n  \"pinfl\": \"30123456789012\",\r\n  \"threshold\" : 0.9 // Рекомендовано от 0.8 до 0.99 (минимальное значение 0.6)\r\n}"
+            },
+            "url": {
+              "raw": "{{myid}}/api/v2/sdk/sessions",
+              "host": [
+                "{{myid}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "sdk",
+                "sessions"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{myid}}/api/v2/sdk/sessions",
+                  "host": [
+                    "{{myid}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v2",
+                    "sdk",
+                    "sessions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"session_id\": \"339cd97b-e7bf-48d3-ad08-d858fd749344\" // в формате uuid4 \n}"
+            },
+            {
+              "name": "400 bad",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{myid}}/api/v2/sdk/sessions",
+                  "host": [
+                    "{{myid}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v2",
+                    "sdk",
+                    "sessions"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"detail\": \"Error message\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "/sdk/data",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{myid}}/sdk/data?code=339cd97b-e7bf-48d3-ad08-d858fd749344",
+              "host": [
+                "{{myid}}"
+              ],
+              "path": [
+                "sdk",
+                "data"
+              ],
+              "query": [
+                {
+                  "key": "code",
+                  "value": "339cd97b-e7bf-48d3-ad08-d858fd749344"
+                }
+              ]
+            },
+            "description": "⚠️ Важное примечание:  \nСрок жизни параметра code составляет 5 минут, и этот параметр может быть использован только один раз (одноразовый). Запрещено хранить и передавать параметр client_secret через мобильное приложение (на стороне фронтенда). Все действия с использованием параметра client_secret должны выполняться на стороне backend системы."
+          },
+          "response": [
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{myid}}/sdk/data?code=339cd97b-e7bf-48d3-ad08-d858fd749344",
+                  "host": [
+                    "{{myid}}"
+                  ],
+                  "path": [
+                    "sdk",
+                    "data"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "339cd97b-e7bf-48d3-ad08-d858fd749344"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": {\n    \"comparison_value\": 0.92, // Уровень достоверности (0.0–1.0)\n    \"pass_data\": \"string\", // Паспортные данные\n    \"job_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"profile\": {\n      \"common_data\": { // Личные идентификационные данные\n        \"first_name\": \"Иван\", // Имя (кириллица)\n        \"middle_name\": \"Иванович\", // Отчество (необязательное)\n        \"last_name\": \"Иванов\", // Фамилия (кириллица)\n        \"first_name_en\": \"Ivan\", // Имя (латиница, из паспорта)\n        \"last_name_en\": \"Ivanovich\", // Фамилия (латиница, из паспорта)\n        \"pinfl\": \"30123456789012\", // Персональный идентификационный номер физлица (14 цифр)\n        \"gender\": \"Мужской\", // Пол\n        \"birth_place\": \"Ташкент\", // Место рождения\n        \"birth_date\": \"1985-10-31\", // Дата рождения (формат YYYY-MM-DD)\n        \"nationality\": \"Узбек\", // Национальность\n        \"citizenship\": \"Узбекистан\", // Гражданство\n        \"sdk_hash\": \"a3f8c2d1e4b7091234abcd5678ef9012\", // Хэш сессии SDK для отслеживания\n        \"last_update_pass_data\": \"2022-03-15\", // Дата последнего обновления паспортных данных\n        \"last_update_address\": \"2021-07-20\" // Дата последнего обновления адреса\n      },\n      \"doc_data\": { // Данные документа\n        \"pass_data\": \"AA1234567\", // Серия и номер паспорта\n        \"issued_by\": \"МВД Республики Узбекистан\", // Орган, выдавший документ\n        \"issued_by_id\": \"UZ-MIA-TSH-001\", // Код органа, выдавшего документ\n        \"issued_date\": \"2020-03-15\", // Дата выдачи документа\n        \"expiry_date\": \"2030-03-14\", // Дата окончания срока действия\n        \"doc_type\": \"Паспорт гражданина Республики Узбекистан\", // Тип документа\n        \"doc_type_id\": \"1\", // ID типа документа (внутренний)\n        \"doc_type_id_cbu\": \"PP\" // ID типа документа по классификатору ЦБ РУз\n      },\n      \"contacts\": { // Контактные данные (необязательный блок)\n        \"phone\": \"+998910203344\", // Номер телефона в международном формате\n        \"email\": \"ivanov@example.uz\" // Электронная почта\n      },\n      \"address\": { // Адресные данные (необязательный блок)\n        \"permanent_address\": \"г. Ташкент, Юнусабадский район, ул. Амира Темура, д. 15, кв. 42\", // Постоянный адрес (строкой)\n        \"temporary_address\": null, // Временный адрес (строкой), null если отсутствует\n        \"permanent_registration\": { // Постоянная регистрация (объект)\n          \"mfy\": \"Юнусабад\", // Название махалли\n          \"mfy_id\": \"1726352\", // ID махалли\n          \"region\": \"Ташкент\", // Название региона\n          \"address\": \"г. Ташкент, Юнусабадский район, ул. Амира Темура, д. 15, кв. 42\", // Полный адрес\n          \"country\": \"Узбекистан\", // Название страны\n          \"cadastre\": \"10-234-56-789\", // Кадастровый номер объекта\n          \"district\": \"Юнусабадский\", // Название района\n          \"region_id\": \"26\", // ID региона (внутренний)\n          \"country_id\": \"860\", // ID страны (ISO 3166-1 numeric)\n          \"district_id\": \"2610\", // ID района (внутренний)\n          \"region_id_cbu\": \"26\", // ID региона по классификатору ЦБ РУз\n          \"country_id_cbu\": \"UZB\", // ID страны по классификатору ЦБ РУз (ISO 3166-1 alpha-3)\n          \"district_id_cbu\": \"2610\", // ID района по классификатору ЦБ РУз\n          \"registration_date\": \"2015-06-01\" // Дата постановки на постоянный учёт\n        },\n        \"temporary_registration\": { // Временная регистрация (объект)\n          \"mfy\": \"Сергели\", // Название махалли\n          \"mfy_id\": \"1726401\", // ID махалли\n          \"region\": \"Ташкент\", // Название региона\n          \"address\": \"г. Ташкент, Сергелийский район, пр. Бунёдкор, д. 8, кв. 5\", // Полный адрес\n          \"cadastre\": \"10-567-89-012\", // Кадастровый номер объекта\n          \"district\": \"Сергелийский\", // Название района\n          \"date_from\": \"2024-01-10\", // Дата начала временной регистрации\n          \"date_till\": \"2025-01-09\", // Дата окончания временной регистрации\n          \"region_id\": \"26\", // ID региона (внутренний)\n          \"district_id\": \"2614\", // ID района (внутренний)\n          \"region_id_cbu\": \"26\", // ID региона по классификатору ЦБ РУз\n          \"district_id_cbu\": \"2614\" // ID района по классификатору ЦБ РУз\n        }\n      }\n    }\n  }\n}"
+            },
+            {
+              "name": "400 bad",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{myid}}/sdk/data?code=339cd97b-e7bf-48d3-ad08-d858fd749344",
+                  "host": [
+                    "{{myid}}"
+                  ],
+                  "path": [
+                    "sdk",
+                    "data"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "339cd97b-e7bf-48d3-ad08-d858fd749344"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"detail\": \"Error message\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fb-iaps",
+      "item": [
+        {
+          "name": "/check-customer-with-full-name",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{fb-iabs}}/check-customer-with-full-name?name=IVANOV%20IVAN%20IVANOVICH&birthDay=31.10.1985",
+              "host": [
+                "{{fb-iabs}}"
+              ],
+              "path": [
+                "check-customer-with-full-name"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "IVANOV%20IVAN%20IVANOVICH",
+                  "description": "Верхний регистр, через пробел %20"
+                },
+                {
+                  "key": "birthDay",
+                  "value": "31.10.1985",
+                  "description": "день рождение в формате dd.mm.yyyy"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 bad",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/check-customer-with-full-name",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "check-customer-with-full-name"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 0,\n    \"msg\": \"Успешно!\",\n    \"responseBody\": {\n        \"response\": \"true\"\n    }\n}\n"
+            },
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/check-customer-with-full-name",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "check-customer-with-full-name"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 0,\n    \"msg\": \"Успешно!\",\n    \"responseBody\": {\n        \"response\": \"false\"\n    }\n}"
+            },
+            {
+              "name": "400 bad - не передано ФИО",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/check-customer-with-full-name",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "check-customer-with-full-name"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -69003,\n    \"msg\": \"checkCustomerWithFullName.name: must not be null or blank\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "/open-client-acc-jur",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"reqId\": 202606190001,\n    \"operation\": \"reques2\",\n    \"tariffId\": \"2\", // Тариф (code)\n    \"stateOfTariff\": \"1\", // Статус тарифа (1 - проведен, 0 - введен)\n    \"docFileData\": [],\n    \"additionalData\": { // Дополнительные реквизиты\n        \"regAddressEmail\": \"test_company@mail.com\", // Email\n        \"regAddress\": \"г. Ташкент, Мирабадский район, ул. Тараса Шевченко, д. 21\",  // Адрес\n        \"accountant\": \"Иванов И.И.\", // ???\n        \"ebpActivityCode\": \"123\", // Вид деятельности в ЕБП\n        \"activationDate\": \"18.06.2026\", // ??? \n        \"dateClose\": \"18.06.2036\", // Дата оконч. действ. клиента\n        \"leavingClient\": 0, // ???\n        \"regAddressPhoneMobile\": \"998910203344\", // Мобильный телефон\n        \"regAddressPostCode\": \"100000\", // Почтовый индекс\n        \"corporateClient\": 0, // Признак корпоративного клиента (0-Y, 1-N)\n        \"note\": \"Финальный тестовый запрос\", // Примечание\n        \"pdlStatus\": 0, // Статус ПДЛ (0-Нет, 1-Да)\n        \"capitalAmount\": 50000000, // Сумма уставного капитала\n        \"regAddressPhone\": \"998711234567\", // Телефон\n        \"fax\": \"711234568\" // Факс без префикса 998\n    },\n    \"accountant\": { // Карточка бухгалтера\n        \"accountantPlaceOfBirth\": \"г. Ташкент\",\n        \"accountantAddress\": \"г. Ташкент, Чиланзарский район, кв-л 2, д. 5, кв. 12\", // ???\n        \"accountantCitizen\": \"860\", // Гражданство (code)\n        \"accountantDocDate\": \"15.05.2020\",  // Дата выдачи\n        \"accountantDocCpok\": \"15.05.2030\",  // Дата оконч. действ\n        \"accountantDateOfBirth\": \"31.10.1985\", // Дата рожд\n        \"accountantFirstName\": \"Иван\", // Имя\n        \"accountantFirstNameEng\": \"IVAN\", // Имя (лат.)\n        \"accountantDocMrz1\": \"IUZB1234567890<<<<<<<<<<<<<<<8508204M3005152UZB<<<<<<<<<<<<<<0\", // Машиночитаемая строка\n        \"accountantIsuuePlace\": \"РОВД Чиланзарского района\", // Место выдачи\n        \"accountantAddressPhoneMobile\": \"998910203344\", // Мобильный телефон\n        \"accountantBirthRegion\": \"10\", // Обл. рожд\n        \"accountantAddressRegion\": \"10\", // Обл. прожив\n        \"accountantMiddleName\": \"Иванович\", // Отчество\n        \"accountantMiddleNameEng\": \"IVANOVICH\", // Отчество (лат.)\n        \"accountantPersonKod\": \"32008851234567\", // ПИНФЛ\n        \"accountantGender\": 1, // Пол (1-M, 2-F)\n        \"accountantBirthCity\": \"101\", // Район рожд (code)\n        \"accountantAddressCity\": \"101\", // Район прожив (code)\n        \"accountantAddressCountry\": \"860\", // Страна прожив (code) \n        \"accountantBirthCountry\": \"860\", // Страна рожд (code)\n        \"accountantDocType\": 1, // Тип документа (0-9)\n        \"accountantSeries\": \"AA\", // Серия\n        \"accountantNumber\": \"1234567\", // Номер\n        \"accountantSurname\": \"Иванов\", // Фамилия\n        \"accountantSurnameEng\": \"IVANOV\" // Фамилия (лат.)\n    },\n    \"director\": { // Карточка директора\n        \"directorPlaceOfBirth\": \"Самаркандская область\", // Адрес рождения\n        \"directorAdress\": \"г. Ташкент, Юнусабадский район, Ц-4, д. 10, кв. 45\", // Адрес проживания\n        \"directorCitizen\": \"860\", // Гражданство (code)\n        \"directorDocDate\": \"10.10.2021\", // Дата выдачи\n        \"directorDocCpok\": \"10.10.2031\", // Дата оконч. действ\n        \"directorDateOfBirth\": \"31.10.1985\", // Дата рожд\n        \"directorFirstName\": \"ИВАН\", // Имя\n        \"directorFirstNameEng\": \"IVAN\", // Имя (лат.): \n        \"directorDocMrz1\": \"IUZB9876543210<<<<<<<<<<<<<<<8003152M3110108UZB<<<<<<<<<<<<<<1\", // Машиночитаемая строка\n        \"directorDocIssuedBy\": \"УВД Юнусабадского района\", // Место выдачи\n        \"directorAddressPhoneMobile\": \"998910203344\", // Мобильный телефон\n        \"directorBirthRegion\": \"18\", // Обл. рожд (code)\n        \"directorAddressRegion\": \"10\", // Обл. прожив (code)\n        \"directorMiddleName\": \"Иванович\", // Отчество\n        \"directorMiddleNameEng\": \"IVANOVICH\", //Отчество (лат.)\n        \"directorPersonKod\": \"31503809876543\", // ПИНФЛ\n        \"directorGender\": 1, // Пол (1-M, 2-F)\n        \"directorBirthCity\": \"182\", // Район рожд\n        \"directorAddressCity\": \"107\", // Район прожив\n        \"directorAddressCountry\": \"860\", // Страна прожив\n        \"directorBirthCountry\": \"860\", // Страна рожд\n        \"directorDocType\": 1, // Тип документа\n        \"directorSeries\": \"FA\", // Серия\n        \"directorNumber\": \"7654321\", // Номер\n        \"directorSurname\": \"Иванов\", // Фамилия\n        \"directorSurnameEng\": \"IVANOV\" // Фамилия (лат.)\n    },\n    \"founderLegal\": [ // Карточка учредителя (юр.лицо)\n        {\n            \"founderLegalAdress\": \"г. Ташкент, Яккасарайский р-н, ул. Шота Руставели, 45\", // Адрес\n            \"founderLegalRegAdress\": \"г. Ташкент, Яккасарайский р-н, ул. Шота Руставели, 45\", // Региональный адрес\n            \"founderLegalState\": \"860\", // Государство (code)\n            \"founderLegalRegDate\": \"20.02.2018\", // Дата регистр\n            \"founderLegalPerc\": 50, // Доля учред\n            \"founderLegalShare\": 25000000, // Доля учред. сумма\n            \"founderLegalFirstName\": \"Представитель\",\n            \"founderLegalFirstNameLat\": \"PREDSTAVITEL\",\n            \"founderLegalName\": \"ООО INFOTECH HOLDING\", // Имя юр. лица\n            \"founderLegalInn\": \"305123456\", // ИНН\n            \"founderLegalGni\": \"1005\", // Код ГНИ\n            \"founderLegalCode\": \"87654321\", // Код юр. лица\n            \"founderLegalMobilePhone\": \"998910203344\", // Мобильный телефон\n            \"founderLegalRegNum\": \"456123\", // Номер регистр.\n            \"founderLegalRegRegion\": \"10\", // Область регистр (code)\n            \"founderLegalOkonh\": \"14321\", // ОКОНХ (code)\n            \"founderLegalPercPayed\": 100, // Оплач.доля учредителя\n            \"founderLegalSharePayed\": 25000000, // Оплач.доля учред. сумма (.00)\n            \"founderLegalForm\": \"050\", // Орг.прав.форма (code)\n            \"founderLegalMiddleName\": \"Тестовый\", // ??? \n            \"founderLegalMiddleNameLat\": \"TESTOVIY\", // ??? \n            \"founderLegalRegCity\": \"103\", // Район регистр (code)\n            \"founderLegalSoato\": \"17262\", // СОАТО (code)\n            \"founderLegalType\": \"01\",\n            \"founderLegalLastName\": \"Учредителя\", // ???\n            \"founderLegalLastNameLat\": \"UCHREDITELYA\", // ???\n            \"founderLegalMfo\": \"00440\", // Филиал регистр\n            \"founderLegalOwnType\": \"111\" // Форма собст\n        }\n    ],\n    \"founderPhysical\": [ // Карточка учредителя (физ.лицо)\n        {\n            \"founderPhysicalBirthAdress\": \"Ферганская область\", // Адрес рождения\n            \"founderPhysicalAdress\": \"г. Ташкент, Шайхантахурский р-н, ул. Навои, д. 8\", // Адрес проживания\n            \"founderPhysicalPerc\": 50, // Доля учр. - %\n            \"founderPhysicalShare\": 25000000, // Доля учр. - сумма (.00)\n            \"founderPhysicalMrz\": \"IUZB5555444433<<<<<<<<<<<<<<<7512011M3208124UZB<<<<<<<<<<<<<<5\", // Машиночитаемая строка\n            \"founderPhysicalBirthRegion\": \"12\", // Обл. рожд (code)\n            \"founderPhysicalRegion\": \"10\", // Обл. прожив (code)\n            \"founderPhysicalPercPayed\": 100, // Оплач. доля учр. - %\n            \"founderPhysicalSharePayed\": 25000000, // Оплач. доля учр. - сумма\n            \"founderPhysicalMiddleName\": \"Иванович\", // Отчество\n            \"founderPhysicalMiddleNameLat\": \"PULATOVICH\", // Отчество (лат.)\n            \"founderPhysicalCity\": \"105\", // Район прожив (code)\n            \"founderPhysicalBirthCity\": \"121\", // Район рожд (code)\n            \"founderPhysicalCitizenship\": \"860\", // Гражданство (code)\n            \"founderPhysicalIssueDate\": \"12.08.2022\", // Дата выдачи\n            \"founderPhysicalExpireDate\": \"12.08.2032\", // Дата оконч. действ\n            \"founderPhysicalBirthDate\": \"31.10.1985\", // Дата рожд\n            \"founderPhysicalFirstName\": \"Иван\", // Имя\n            \"founderPhysicalFirstNameLat\": \"IVAN\", // Имя (лат.): \n            \"founderPhysicalIssuePlace\": \"РОВД Шайхантахурского района\", // Место выдачи\n            \"founderPhysicalMobilePhone\": \"998910203344\", // Мобильный телефон\n            \"founderPhysicalNumber\": \"4445555\", // Номер\n            \"founderPhysicalPinfl\": \"30123456789012\", // ПИНФЛ\n            \"founderPhysicalGender\": 1, // Пол (1-M, 2-F)\n            \"founderPhysicalSeries\": \"KA\",  // Серия\n            \"founderPhysicalBirthCountry\": \"860\", // Страна рожд\n            \"founderPhysicalDocType\": 1, // Тип документа (0-9)\n            \"founderPhysicalLastName\": \"Иванов\", // Фамилия\n            \"founderPhysicalLastNameLat\": \"IVANOV\" // Фамилия (лат.)\n        }\n    ],\n    \"commonAttributes\": {\n        \"codeSegment\": \"1\", // ??? (Код сегмента)\n        \"bic\": \"123123\" // BIC \n    },\n    \"statAttributes\": {\n        \"codeAddress\": \"100015\", // Адресный код\n        \"soato\": \"1726269\", // СОАТО\n        \"soogu\": \"01006\", // СООГУ\n        \"codeGni\": \"1006\", // ГНИ\n        \"regDate\": \"18.06.2026\", // Дата регистрации \n        \"inn\": \"207064163\", // ИНН\n        \"headOfficeInn\": \"207064163\", // ИНН головн.предпр\n        \"headOfficeCode\": \"12345678\", // Код юридического лица\n        \"codeOkpo\": \"12345678\", // ОКПО\n        \"regName\": \"Центр Государственных Услуг Мирабадского р-на\", // Место регистрации (код)\n        \"headOfficeName\": \"ООО OLD MONEY BRO\", // Наимен.головн.предпр\n        \"regNum\": \"9876542026\", // Номер регистрации\n        \"safeBox\": \"0\", // ???\n        \"regAddressRegion\": \"10\", // Область проживания (code)\n        \"codeOked\": \"62010\", // ОКЭД \n        \"codeOpf\": \"151\", // Организ.-прав. форма (code)\n        \"managementUnit\": \"01234\", // Органы управления (code)\n        \"masterAccount\": \"\", // Основной расчетный счет\n        \"smallClient\": 1, // ???\n        \"tradePermission\": \"N\", // Разрешение торговой или торгово-посреднической деятельности (Y/N)\n        \"regAddressDistrict\": \"101\", // Район проживания (code) \n        \"linkedClient\": 0, // Связанный клиент (code)\n        \"masterAccountMfo\": \"00440\", // Код ЦБУ основного счёта\n        \"codeOwner\": \"130\", // Форма собственности (code)\n        \"codeOkonh\": \"84100\" // Экономический сектор (code)\n    },\n    \"cbAttributes\": {\n        \"regAddressCountry\": \"860\", // Cтрана гражданства (code)\n        \"name\": \"ООО NEW TECH LEADER\", // Наименование организации\n        \"nameLat\": \"NEW TECH LEADER LLC\", // Наименование организации (лат.) *\n        \"rezident\": 1, // Резидентность (1/0)\n        \"swift\": \"\", // Свифт банка-корреспондента (code)\n        \"typeOf\": \"09\", // Тип клиента (code)\n        \"nonRezidentType\": 0 // Тип нерезидента (0-4)\n    },\n    \"accAttributes\": { // Карточка счета\n        \"employeeCode\": \"001\", // Группа (code)\n        \"bankCode\": \"01000\", // Подразделение \n        \"officeBankServiceCode\": \"03000\" // Код ЦБУ\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{fb-iabs}}/1.0.0/open-client-acc-jur",
+              "host": [
+                "{{fb-iabs}}"
+              ],
+              "path": [
+                "1.0.0",
+                "open-client-acc-jur"
+              ]
+            },
+            "description": "Creates a client card for one of two client types:\n  - LEGAL_ENTITY\n  - INDIVIDUAL_ENTREPRENEUR\n\nFor LEGAL_ENTITY creation is allowed only if director, founder and accountant are the same person.\nAfter card creation system should:\n  - set identification status to IDENTIFIED\n  - save selected tariff\n\nIf card is created but identification status is not updated and/or tariff is not saved, partial success response is returned.\n"
+          },
+          "response": [
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/1.0.0/open-client-acc-jur",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "1.0.0",
+                    "open-client-acc-jur"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 0,\n    \"msg\": \"Успешно\",\n    \"responseBody\": {\n        \"queryId \": 14649300,\n        \"clientCode\": \"04832374\",\n        \"clientId\": 105075165,\n        \"clientUid\": 51858371,\n        \"idAcc\": 65862586,\n        \"account\": \"20208000904832374002\"\n    }\n}"
+            },
+            {
+              "name": "500 bad - требуется ручная проверка комплаенс-контроллера",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/1.0.0/open-client-acc-jur",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "1.0.0",
+                    "open-client-acc-jur"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 999,\n    \"msg\": \"Неизвестная ошибка : Ошибка в реакции Cm_Client_Reactions.Reaction_Juridical_Person_Ins: \\n^Шубхали шахслар руйхатида\\\"OOO INFOTECH HOLDING\\\" га ухшаш ном бор.Текширув натижасини 5 дакика кутинг ёки \\\"Ички назорат ходимлари (вн:4605,7085)\\\" га мурожаат килинг.~\",\n    \"oraMsg\": \"Ошибка в реакции Cm_Client_Reactions.Reaction_Juridical_Person_Ins: \\n^Шубхали шахслар руйхатида\\\"OOO INFOTECH HOLDING\\\" га ухшаш ном бор.Текширув натижасини 5 дакика кутинг ёки \\\"Ички назорат ходимлари (вн:4605,7085)\\\" га мурожаат килинг.~\"\n}"
+            },
+            {
+              "name": "500 bad - у клиента уже есть карточка клиента со статусом Закрыт",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/1.0.0/open-client-acc-jur",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "1.0.0",
+                    "open-client-acc-jur"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 11,\n    \"msg\": \"0-zapros  IABS da xatolik sodir boldiAction# : Exec_Query_0 : \\nОшибка Action: Action : Произошла непредвиденная ошибка при запуске процедурыУтверждение клиента- : \\nОшибка в Insert_Current : \\nнарушено ограничение уникальности (IBS.PK_CLIENT_CURRENT)\"\n}"
+            },
+            {
+              "name": "500 bad - у клиента уже имеется основной расчетный счет в НИББД",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/1.0.0/open-client-acc-jur",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "1.0.0",
+                    "open-client-acc-jur"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 11,\n    \"msg\": \"Ошибка при отправке N:1 запроса НИББД : Action# : Субъект уже зарегистрирован в НИББД.Query_id :2646DKK183JXP1816EQW\",\n    \"oraMsg\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "/open-client-acc-yatt",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reqId\": 202606240001,\n  \"operation\": \"reques1\",\n  \"tariffId\": \"string\",\n  \"stateOfTariff\": \"s\",\n  \"docFileData\": [],\n  \"docAttributes\": {\n    \"passportBeginDate\": \"10.10.2021\", // Дата выдачи\n    \"passportExpDate\": \"10.10.2031\", // Дата оконч. действ. паспорта\n    \"inps\": \"3200\", // ИНПС \n    \"regionCodeAddress\": \"18\", // ???\n    \"regionCode\": \"03\", // Код области проживания (Место прописки)*\n    \"districtCodeAddress\": \"096\", // ???\n    \"districtCode\": \"001\", // Код района проживания (Место прописки)*\n    \"machReadPassData\": \"MACHREADPASSDATA\",  // Машиночитаемые данные в паспорте\n    \"passportIssued\": \"УВД Юнусабадского района\", // Место выдачи\n    \"rezident\": 1, // ???\n    \"passportSeria\": \"FA\", // Серия\n    \"passportNumber\": \"7654321\", // Номер\n    \"passportIssuedCountry\": \"860\", // Страна выдачи документа\n    \"citizenship\": \"860\", // ???\n    \"nonResidentType\": 0, // ???\n    \"pinfl\": \"30123456789012\" // ПИНФЛ\n  },\n  \"additionalData\": {\n    \"codeAddress\": \"100015\", // Адресный код (text)\n    \"ebpActivityCode\": \"123\", // Вид деятельности в ЕБП (code)\n    \"gni\": \"1006\", // ГНИ\n    \"archivationDate\": \"18.06.2036\", // Дата архивации данных о клиенте\n    \"pensionIssueDate\": \"15.05.2020\", // Дата выдачи пенсионного \n    \"clientExpDate\": \"18.06.2036\", // Дата оконч. действ. клиента\n    \"regDate\": \"18.06.2026\", // Дата регистрации\n    \"deathDate\": \"\", // Дата смерти\n    \"avrgSalary\": 5000000, // Ежемесячная средняя заработная зарплата (+.00)\n    \"hasPersonalEstate\": 0, // Имеется ли движимое имущество\n    \"hasRealEstate\": 0, // Имеется ли недвижимое имущество\n    \"inn\": \"201582624\", // ИНН\n    \"headOfficeInn\": \"201582624\", // ИНН головн.предпр \n    \"housingType\": 1, // Информация о жилье (1-Собственное жилье, 2-Съемное жилье, 3-Проживание у третьих лиц, 4-Прочее)\n    \"leavingClient\": 0, // ???\n    \"liquidationCode\": 0, // Код вида причины ликвидации клиента\n    \"headOfficeCode\": \"12345678\", // Код головн. предпр\n    \"codeOkpo\": \"12345678\", // ОКПО (text)\n    \"docIssueOrgan\": \"УВД\", // ???\n    \"regName\": \"03401\", // Место регистрации\n    \"headOfficeName\": \"ХЭД ОФФИС НЕЙМ\", // Наимен.головн.предпр\n    \"organizationName\": \"ОРГАНИЗЕЙШН НЕЙМ\", // Наименование организации\n    \"organizationNameLat\": \"ORGANIZATION NAME LAT\", // Наименование организации (лат.)\n    \"pensionId\": \"1234567\", // Номер пенсионного удостоверения\n    \"regNumber\": \"9876542026\", // Номер регистрации\n    \"safeBox\": \"0\", // ???\n    \"education\": 1, // Образование (1-Высшее, 2-Среднее спец, 3-Среднее, 4-Нет)\n    \"oked\": \"62010\", // ОКЭД (code)\n    \"workExperience\": 24, // Опыт работы (в месяцах) \n    \"orgLegalForm\": \"420\", // Организ.-прав. форма (code) (static)\n    \"governing\": \"05364\", // Органы управления\n    \"basicSettlementAcc\": \"\", // Основной расчетный счет\n    \"smallClient\": 1, // Признак клиента малого бизнеса (1-Y, 2-N)\n    \"operability\": \"0801\", // Работоспособность (0801 - Работоспособное ФЛ, 0802 - Работающий пенсионер ФЛ, 0803 - Неработающий пенсионер ФЛ, 0804 - ФЛ инвалид с детства, 0899 - Другие ФЛ)\n    \"tradePermission\": \"Y\", // Разрешение торговой или торгово-посреднической деятельности (Y-true, N-false)\n    \"coato\": \"1726269558\", // СОАТО \n    \"capitalAmount\": 50000000, // Сумма уставного капитала\n    \"basicAccBranch\": \"00440\", // Код ЦБУ основного счёта \n    \"ownershipType\": \"111\", // Форма собственности (code) (static)\n    \"economicSector\": \"84100\", // Экономический сектор (code)\n    \"isCivilServant\": 0 // Является ли клиент государственным служащим (0-N, 1-Y)\n  },\n  \"contactAttributes\": {\n    \"email\": \"test_company@mail.com\", // Email \n    \"webSite\": \"www.testcompany.uz\", // Веб страница\n    \"tempAddress\": \"г. Ташкент, Юнусабадский район, Ц-4, д. 10, кв. 45\", // Временный адрес проживания\n    \"cityCode\": \"107\", // Город проживания\n    \"contactNumber\": \"998711234567\", // Телефон, Контактный телефон\n    \"birthPlace\": \"Самаркандская область\", // Место рождения\n    \"phoneNumber\": \"998910203355\", // Мобильный телефон\n    \"domicileKadastr\": \"12345678901234\", // Номер Кадастра\n    \"residenceAddress\": \"г. Ташкент, Мирабадский район, ул. Тараса Шевченко, д. 21\", // Почтовый адрес\n    \"postIndex\": \"100000\", // Почтовый индекс\n    \"countryCode\": \"860\", // Страна проживания\n    \"birthCountry\": \"860\", // Страна рождения\n    \"fax\": \"711234568\" // Факс \n  },\n  \"commonAttributes\": {\n    \"codeSegment\": \"Ommaviy\",\n    \"bic\": \"123123\" // ???\n  },\n  \"cbAttributes\": {\n    \"birthDate\": \"31.10.1985\", // Дата рождения\n    \"name\": \"Иван\", // Имя\n    \"nameInter\": \"IVAN\", // Имя (Междунар.)\n    \"patronymic\": \"Иванович\", // Отчество\n    \"gender\": 1, // Пол (1-M, 2-F)\n    \"middleNameEng\": \"IVANOVICH\", // Отчество(Междунар.)\n    \n    \"swift\": \"\",\n    \"maritalStatus\": \"5\", // Семейное положение (0-пусто, 1-женат, 2-холост, 3-замужем, 4-не замужем, 5-в разводе, 6-вдова, 7-вдовец)\n    \"docType\": 1, // Тип документа\n    \"lastName\": \"Иванов\", // Фамилия\n    \"lastNameInter\": \"IVANOV\", // Фамилия (Междунар.)\n    \"fio\": \"Директор и Бухгалтер\" // Директор, Бухгалтер \n  },\n  \"accAttributes\": {\n    \"employeeCode\": \"001\", // Порядковый\n    \"bankCode\": \"01000\", // ???\n    \"officeBankServiceCode\": \"03000\" // Подразделение*\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{fb-iabs}}/1.0.0/open-client-acc-yatt",
+              "host": [
+                "{{fb-iabs}}"
+              ],
+              "path": [
+                "1.0.0",
+                "open-client-acc-yatt"
+              ]
+            },
+            "description": "Creates a client card for one of two client types:\n  - LEGAL_ENTITY\n  - INDIVIDUAL_ENTREPRENEUR\n\nFor LEGAL_ENTITY creation is allowed only if director, founder and accountant are the same person.\nAfter card creation system should:\n  - set identification status to IDENTIFIED\n  - save selected tariff\n\nIf card is created but identification status is not updated and/or tariff is not saved, partial success response is returned.\n"
+          },
+          "response": [
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/1.0.0/open-client-acc-yatt",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "1.0.0",
+                    "open-client-acc-yatt"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 0,\n    \"msg\": \"Успешно\",\n    \"responseBody\": {\n        \"queryId \": 14649352,\n        \"clientCode\": \"07013651\",\n        \"clientId\": 105075564,\n        \"clientUid\": 51858710,\n        \"idAcc\": 65863005,\n        \"account\": \"20218000507013651001\"\n    }\n}"
+            },
+            {
+              "name": "200 bad создалась карточка без счета",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/1.0.0/open-client-acc-yatt",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "1.0.0",
+                    "open-client-acc-yatt"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 0,\n    \"msg\": \"1-zapros bilan NIBBDA klient ochildi! IABS da xatolik sodir boldi : Action# : Action (???????? ?? ???????????? ??????? ? ?/?) : ?????????????? ???? ??????? ? ???. ????? - ?????? ? ????? 07013654 ????? ??? = 09 (Частные предприятия, хозяйства, товарище) , ???. ????. 20218 ????? ??? = 11 (Индивидуальные предприниматели). ----- PL/SQL Call Stack -----\\n  object      line  object\\n  handle    number  name\\n0x9dc6efb0      6281  package body IBS.ACCOUNT.ACTION_CHECK\\n0x9dc6efb0      7431  package body IBS.ACCOUNT.ACTION\\n0xd98ed868       913  package body IBS.CA_NIBBD_KERNEL.SETCLIE\",\n    \"responseBody\": {\n        \"queryId \": 14649491,\n        \"clientCode\": \"I3186522\"\n    }\n}"
+            },
+            {
+              "name": "500 bad таймаут",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/1.0.0/open-client-acc-yatt",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "1.0.0",
+                    "open-client-acc-yatt"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -70119,\n    \"msg\": \"Ошибка(SQLRecoverableException)TIMEOUT при выполнении метода выполнения!: ORA-18730: Ошибка прерванной операции ввода-вывода.: Socket read timed out\\r\\nhttps://docs.oracle.com/error-help/db/ora-18730/\"\n}"
+            },
+            {
+              "name": "500 bad нет данных в ГНК",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/1.0.0/open-client-acc-yatt",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "1.0.0",
+                    "open-client-acc-yatt"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 11,\n    \"msg\": \"Ошибка при отправке N:1 запроса  НИББД : Action# : Отсутсвует информация по данному ПИНФЛ в системе ГНК.Query_id :2635ZC5177L9B1059Q0L\"\n}"
+            },
+            {
+              "name": "500 bad не ип",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/1.0.0/open-client-acc-yatt",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "1.0.0",
+                    "open-client-acc-yatt"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 11,\n    \"msg\": \"Ошибка при отправке N:1 запроса  НИББД : Action# : Данное лицо не является индивидуальным предпринимателем.Query_id :2622BYL177ZZX1103BYE\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "/get-active-accounts/{clientId}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{fb-iabs}}/get-active-accounts/{clientUId}",
+              "host": [
+                "{{fb-iabs}}"
+              ],
+              "path": [
+                "get-active-accounts",
+                "{clientUId}"
+              ]
+            },
+            "description": "используется именно clientUid (не clientId как указано на шине), берется из ответа метода по созданию карточки клиента и открытию счета"
+          },
+          "response": [
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/get-active-accounts/{clientId}",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "get-active-accounts",
+                    "{clientId}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 0,\n    \"msg\": \"Успешно\",\n    \"responseBody\": {\n        \"response\": [\n            {\n                \"nameAcc\": \"OOO \\\"SAIPRO GROUP\\\"\",\n                \"account\": \"20208000904832374002\",\n                \"codeCurrency\": \"000\",\n                \"saldo\": \"0\",\n                \"codeFilial\": \"00083\",\n                \"codeCoa\": \"20208\",\n                \"condition\": \"A\",\n                \"createDate\": \"23.06.26\",\n                \"id\": \"65862586\"\n            },\n            {\n                \"nameAcc\": \"Начисленные %% OOO \\\"SAIPRO GROUP\\\"\",\n                \"account\": \"16401000404832374001\",\n                \"codeCurrency\": \"000\",\n                \"saldo\": \"0\",\n                \"codeFilial\": \"00083\",\n                \"codeCoa\": \"16401\",\n                \"condition\": \"A\",\n                \"createDate\": \"23.06.26\",\n                \"id\": \"65862587\"\n            }\n        ]\n    }\n}"
+            },
+            {
+              "name": "500 bad - неверный формат clientUid",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/get-active-accounts/{clientId}",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "get-active-accounts",
+                    "{clientId}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 999,\n    \"msg\": \"Неизвестная ошибка\",\n    \"oraMsg\": \"PL/SQL:  ошибка числа или значения\"\n}"
+            },
+            {
+              "name": "500 bad - счета не найдены",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{fb-iabs}}/get-active-accounts/{clientId}",
+                  "host": [
+                    "{{fb-iabs}}"
+                  ],
+                  "path": [
+                    "get-active-accounts",
+                    "{clientId}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 2,\n    \"msg\": \"Бу клиент ид бн 123123 малумот топилмади..!\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "abs",
+      "item": [
+        {
+          "name": "/esbaml/is-in-blacklist-jur",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{abs}}/esbaml/is-in-blacklist-jur",
+              "host": [
+                "{{abs}}"
+              ],
+              "path": [
+                "esbaml",
+                "is-in-blacklist-jur"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 bad - найдено совпадение в БД",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbaml/is-in-blacklist-jur",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbaml",
+                    "is-in-blacklist-jur"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 0,\n    \"msg\": \"Успешно\",\n    \"responseBody\": [\n        {\n            \"resp_code\": \"1\",\n            \"resp_msg\": \"руйхат \\\"OOO NEW TECH LEADER\\\" (NEV TECH LEADER).\",\n            \"result\": \"true\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "400 ok - не найдено в БД",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbaml/is-in-blacklist-jur",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbaml",
+                    "is-in-blacklist-jur"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -5,\n    \"error\": \"innPin данный не найден!\"\n}"
+            },
+            {
+              "name": "400 bad - не передан ИНН или ПИНФЛ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbaml/is-in-blacklist-jur",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbaml",
+                    "is-in-blacklist-jur"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -801,\n    \"error\": \"innPin не может быть пустым\"\n}"
+            },
+            {
+              "name": "400 bad - неверный формат ИНН илии ПИНФЛ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbaml/is-in-blacklist-jur",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbaml",
+                    "is-in-blacklist-jur"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -4,\n    \"error\": \"innPin не верным формате!\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "/esbcrm/send-sms",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "requestId",
+                "value": "{{$guid}}",
+                "description": "Символьный. Уникальный идентификатор запроса"
+              },
+              {
+                "key": "lang",
+                "value": "UZC",
+                "description": "Символьный. Язык ответа (1 – RU, 2 – UZC, 3 – UZL, 4 – EN)"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"localCode\": \"03000\", // Локал код ОБУ или ЦБУ (статично 03000)\n    \"phone\": \"998910203344\", // Номер телефона (номер телефона клиента)\n    \"smsText\": \"123\", // Текст сообщения (ОТП код)\n    \"smsType\": \"1\", // Тип сообщения: 0 — рассылка, 1 — сгенерированное сообщение (статично 1)\n    \"taskCode\": \"6002\", // Код задачи (статично 6002)\n    \"tempId\": \"970\" // ID таблица шаблонов сообщений \n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{abs}}/esbcrm/send-sms",
+              "host": [
+                "{{abs}}"
+              ],
+              "path": [
+                "esbcrm",
+                "send-sms"
+              ]
+            },
+            "description": "Метод для отправки СМС через ABSAPI"
+          },
+          "response": [
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbcrm/send-sms",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbcrm",
+                    "send-sms"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 0,\n    \"msg\": \"Успешно\",\n    \"responseBody\": [\n        {\n            \"id\": 446572904 // ID таблица SMS_DISPATCH_LIST (элемент массива)\n        }\n    ]\n}"
+            },
+            {
+              "name": "400 bad - неверный LocalCode",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbcrm/send-sms",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbcrm",
+                    "send-sms"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -4,\n    \"error\": \"Local code не верным формате!\"\n}"
+            },
+            {
+              "name": "400 bad - неверный формат телефона",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbcrm/send-sms",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbcrm",
+                    "send-sms"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -4,\n    \"error\": \"Phone не верным формате!\"\n}"
+            },
+            {
+              "name": "400 bad - пустой текст сообщения",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbcrm/send-sms",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbcrm",
+                    "send-sms"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -2,\n    \"error\": \"SMS TEXT не может быть пустым!\"\n}"
+            },
+            {
+              "name": "400 bad - неверный smsType",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbcrm/send-sms",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbcrm",
+                    "send-sms"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -3,\n    \"error\": \"SMS TYPE введен не верно!\"\n}"
+            },
+            {
+              "name": "400 bad - неверный taskCode",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbcrm/send-sms",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbcrm",
+                    "send-sms"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -3,\n    \"error\": \"SMS TYPE введен не верно!\"\n}"
+            },
+            {
+              "name": "400 bad - неверный tempId",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbcrm/send-sms",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbcrm",
+                    "send-sms"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": -999,\n    \"error\": \"Ошибка на Oracle!\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "/esbcrm/get-sms",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "requestId",
+                "value": "{{$guid}}",
+                "description": "Символьный. Уникальный идентификатор запроса"
+              },
+              {
+                "key": "lang",
+                "value": "UZC",
+                "description": "Символьный. Язык ответа (1 – RU, 2 – UZC, 3 – UZL, 4 – EN)"
+              }
+            ],
+            "url": {
+              "raw": "{{abs}}/esbcrm/get-sms?id={{id}}",
+              "host": [
+                "{{abs}}"
+              ],
+              "path": [
+                "esbcrm",
+                "get-sms"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{id}}",
+                  "description": "Номер. ID таблица SMS_DISPATCH_LIST"
+                }
+              ]
+            },
+            "description": "Метод для получения статуса СМС"
+          },
+          "response": [
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbcrm/get-sms?id={{id}}",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbcrm",
+                    "get-sms"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "{{id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 0,\n    \"msg\": \"Успешно\",\n    \"responseBody\": [\n        {\n            \"code\": -5,\n            \"id\": 123,\n            \"msg\": \"данный не найден!\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "400 bad - неверный формат id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{abs}}/esbcrm/get-sms?id={{id}}",
+                  "host": [
+                    "{{abs}}"
+                  ],
+                  "path": [
+                    "esbcrm",
+                    "get-sms"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "{{id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 0,\n    \"msg\": \"Успешно\",\n    \"responseBody\": [\n        {\n            \"code\": -5,\n            \"id\": 123,\n            \"msg\": \"данный не найден!\"\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "i-hamkor",
+      "item": [
+        {
+          "name": "{{i-hamkor}}/service/individual/v1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"lang\": \"uz\", // Язык (ru, uz)\r\n  \"pinfl\": \"30123456789012\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{i-hamkor}}/service/individual/v1",
+              "host": [
+                "{{i-hamkor}}"
+              ],
+              "path": [
+                "service",
+                "individual",
+                "v1"
+              ]
+            },
+            "description": "Информация о индивидуальном предпринимателе"
+          },
+          "response": [
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{i-hamkor}}/service/individual/v1",
+                  "host": [
+                    "{{i-hamkor}}"
+                  ],
+                  "path": [
+                    "service",
+                    "individual",
+                    "v1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true, // Признак успешности\n  \"reason\": null, // Причина\n  \"data\": { // Данные\n    \"id\": 239028, // Идентификатор\n    \"formId\": 1, // Идентификатор формы\n    \"tin\": \"50*****67\", // ИНН\n    \"pinfl\": 30123456789012, // ПИНФЛ\n    \"phoneNumber\": 0, // Номер телефона\n    \"formName\": { // Наименование формы\n      \"ru\": \"ИНДИВИДУАЛЬНЫЙ ПРЕДПРИНИМАТЕЛЬ\", // на русском\n      \"uz\": \"YAKKA TARTIBDAGI TADBIRKOR\", // на узбекском латиница\n      \"en\": \"INDIVIDUAL ENTREPRENEUR\" // на английском\n    },\n    \"registrationId\": \"414884\", // Номер государственной регистрации\n    \"registrationDate\": \"21.09.2017\", // Дата регистрации\n    \"beginDate\": \"21.09.2017\", // Дата начала деятельности\n    \"endDate\": \"01.01.3000\", // Дата окончания деятельности\n    \"liquidationDate\": null, // Дата ликвидации\n    \"suspensionDate\": null, // Дата приостановки деятельности\n    \"activityTypeId\": 205, // Идентификатор типа деятельности\n    \"activityTypeName\": {\n      \"ru\": \"Розничная торговля продовольственными и непродовольственными товарами\",\n      \"uz\": \"Oziq-ovqat va nooziq-ovqat tovarlari bilan chakana savdo qilish\",\n      \"en\": \"Retail trade of food and non-food products\"\n    },\n    \"entrepreneurExtraActivityTypes\": [], // Дополнительные виды деятельности\n    \"entrepreneurshipAddress\": { // Адрес места осуществления деятельности\n      \"soatoCode\": 1703211, // Код СОАТО\n      \"regionId\": 3, // Код области осуществления деятельности\n      \"districtId\": 11, // Код района осуществления деятельности\n      \"address\": \"Andijon viloyati, Jalaquduq tumani\", // Адрес\n      \"villageCode\": \"704\" // Код махалли\n    },\n    \"entrepreneurshipDirector\": { // Сведения о директоре\n      \"middleName\": \"IVANOVICH\", // Отчество\n      \"firstName\": \"IVAN\", // Имя\n      \"lastName\": \"IVANOV\" // Фамилия\n    },\n    \"entrepreneurshipContact\": { // Контактные данные\n      \"mobilePhoneNumber\": \"910203344\", // Номер мобильного телефона\n      \"cellPhoneNumber\": null // Номер телефона\n    },\n    \"status\": { // Состояние (статус)\n      \"code\": 1, // Код состояния\n      \"name\": { // Наименование состояния (статуса)\n        \"uz\": \"Faoliyat ko'rsatayapti\" // Наименование состояния на узбекском (латиница)\n      }\n    },\n    \"certificateDocNumber\": \"414884\", // Номер сертификата\n    \"isVatTaxpayer\": 1, // Является ли плательщиком НДС (0-нет, 1-Да)\n    \"vatNumber\": \"303110000599\", // Регистрационный код плательщика НДС субъекта\n    \"vatStatusId\": 1, // Состояние (статус) сертификата плательщика НДС\n    \"vatStatusName\": \"ACTIVE\", // Наименование состояния сертификата плательщика НДС\n    \"vatRegDate\": \"07.02.2019 00:00:00\", // Дата регистрации сертификата плательщика НДС\n    \"taxMode\": 5, // Налоговый режим\n    \"taxModeName\": { // Наименование налогового режима\n      \"ru\": \"Плательщик НДС\", // на русском\n      \"uz\": \"QQS soliq to'lovchi\", // на узбекском латиница\n      \"en\": \"VAT taxpayer\" // на английском\n    },\n    \"taxpayerType\": 2, // Тип налогоплательщика\n    \"taxpayerTypeName\": { // Наименование типа налогоплательщика\n      \"ru\": \"ГНУ\", // на русском\n      \"uz\": \"DSB\", // на узбекском латиница\n      \"en\": \"STA\" // на английском\n    },\n    \"companyBanks\": [ // Банковские реквизиты\n      {\n        \"id\": 193403594, // ID банка\n        \"branchCode\": \"00653\", // Код МФО банка\n        \"account\": \"20218*******0001\", // Расчётный счёт\n        \"state\": 1, // Статус\n        \"stateName\": \"Мижознинг аризасига асосан асосий ҳисобварақ бошқа банкка ўзгартирилганлиги сабабли ёпилган\", // Наименование статуса\n        \"openDate\": \"2018-01-23 00:00:00\", // Дата открытия счёта\n        \"closeDate\": null, // Дата закрытия счёта\n        \"attribute\": 1, // Атрибуты/характеристики\n        \"reasonCode\": null, // Код причины\n        \"tin\": \"5*****7\", // ИНН индивидуального предпринимателя\n        \"bankName\": \"ЖАЛОЛКУДУК Т., АТ ХАЛК БАНКИ ЖАЛОЛКУДУК ФИЛИАЛИ\", // Наименование банка\n        \"currencyCode\": \"000\" // Код валюты счёта (000 – Сум (UZS))\n      },\n      {\n        \"id\": 193831172, // ID банка\n        \"branchCode\": \"00977\", // Код МФО банка\n        \"account\": \"202******02110002\", // Расчётный счёт\n        \"state\": 1, // Статус\n        \"stateName\": \"Мижознинг аризасига асосан асосий ҳисобварақ бошқа банкка ўзгартирилганлиги сабабли ёпилган\", // Наименование статуса\n        \"openDate\": \"2018-01-23 00:00:00\", // Дата открытия счёта\n        \"closeDate\": null, // Дата закрытия счёта\n        \"attribute\": 2, // Атрибуты/характеристики\n        \"reasonCode\": null, // Код причины\n        \"tin\": \"50****467\", // ИНН индивидуального предпринимателя\n        \"bankName\": \"ЖАЛОЛКУДУК Т., ЧЕТ ЭЛ КАПИТАЛИ ИШТИРОКИДАГИ \\\"HAMKORBANK\\\" АТБ ЖАЛАКУДУК ФИЛИАЛИ\", // Наименование банка\n        \"currencyCode\": \"000\" // Код валюты счёта (000 – Сум (UZS))\n      }\n    ],\n    \"individualActSverka\": [ // Данные по уплаченным налогам\n      {\n        \"na2Code\": 100, // Код налога\n        \"na2Name\": \"Айланмадан олинадиган солиқ\", // Наименование налога\n        \"oprDate\": \"2024-05-02 00:00:00\", // Дата операции\n        \"operName\": \"02.05.2024 йилда 5003 туманга кўчиб кетган (переплата)\", // Наименование операции\n        \"termDate\": \"2024-05-02 00:00:00\", // Дата окончания срока\n        \"nachislenN\": 9000000, // Начисленная сумма недоимки\n        \"umenshenasN\": 0, // Уменьшенная сумма недоимки\n        \"uplochN\": 0, // Уплаченная сумма недоимки\n        \"vozvrat\": 0, // Сумма возврата\n        \"saldoTekN\": 0, // Текущая сальдо недоимки\n        \"pereplata\": 0, // Сумма переплаты\n        \"nachislenP\": 0, // Начисленная сумма переплаты\n        \"periodP\": null, // Период переплаты\n        \"uplochP\": 0, // Уплаченная сумма переплаты\n        \"saldoTekP\": 0, // Текущая сальдо переплаты\n        \"shtraf\": 0, // Сумма штрафа\n        \"year\": 2024, // Год\n        \"xar\": 8\n      },\n      {\n        \"na2Code\": 38, // Код налога\n        \"na2Name\": \"YaTMF bilan shug'ullanuvchi Jis-y shaxs. Sug'urta badali\", // Наименование налога\n        \"oprDate\": \"2024-05-02 00:00:00\", // Дата операции\n        \"operName\": \"02.05.2024 йилда 5003 туманга кўчиб кетган (недоимка)\", // Наименование операции\n        \"termDate\": \"2024-05-02 00:00:00\", // Дата окончания срока\n        \"nachislenN\": 0, // Начисленная сумма недоимки\n        \"umenshenasN\": 2339233.21, // Уменьшенная сумма недоимки\n        \"uplochN\": 0, // Уплаченная сумма недоимки\n        \"vozvrat\": 0, // Сумма возврата\n        \"saldoTekN\": 0, // Текущая сальдо недоимки\n        \"pereplata\": 0, // Сумма переплаты\n        \"nachislenP\": 0, // Начисленная сумма переплаты\n        \"periodP\": null, // Период переплаты\n        \"uplochP\": 0, // Уплаченная сумма переплаты\n        \"saldoTekP\": 878032.97, // Текущая сальдо переплаты\n        \"shtraf\": 0, // Сумма штрафа\n        \"year\": 2024, // Год\n        \"xar\": 8\n      }\n    ]\n  },\n  \"id\": 11848492 // Id номер запроса\n}"
+            },
+            {
+              "name": "200 bad",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{i-hamkor}}/service/individual/v1",
+                  "host": [
+                    "{{i-hamkor}}"
+                  ],
+                  "path": [
+                    "service",
+                    "individual",
+                    "v1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"reason\": \" pinfl элемент узунлиги 14 хонали бўлиши лозим;\",\n  \"data\": null,\n  \"id\": 14381465\n}"
+            }
+          ]
+        },
+        {
+          "name": "{{i-hamkor}}/service/yurnp1/v1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"lang\": \"uz\", // Язык (ru, uz)\r\n  \"company_tin\": \"301005025\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{i-hamkor}}/service/yurnp1/v1",
+              "host": [
+                "{{i-hamkor}}"
+              ],
+              "path": [
+                "service",
+                "yurnp1",
+                "v1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 ok",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{i-hamkor}}/service/yurnp1/v1",
+                  "host": [
+                    "{{i-hamkor}}"
+                  ],
+                  "path": [
+                    "service",
+                    "yurnp1",
+                    "v1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true, // Признак успешности\n  \"reason\": null, // Причина\n  \"data\": { // Данные\n    \"tin\": \"3*******25\", // ИНН\n    \"ns10Code\": 26, // Код области\n    \"ns10Name\": \"Тошкент шаҳар\", // Наименование области\n    \"ns11Code\": 2, // Код района\n    \"ns11Name\": \"Мирзо Улуғбек тумани\", // Наименование района\n    \"name\": \"4-SON QURILISH TRESTI\", // Наименование организации\n    \"nameFull\": \"4-SON QURILISH TRESTI\", // Полное наименование организации\n    \"address\": \"X******va 2a  \", // Адрес регистрации\n    \"phoneNumber\": null, // Телефонный номер\n    \"regNum\": \"2,467\", // Регистрационный номер\n    \"regDate\": \"16.02.1995\", // Дата регистрации\n    \"fund\": 0, // Уставной фонда (сум)\n    \"gdFullName\": \"R*****OV R*****K RAX****ICH\", // Ф.И.О. руководителя\n    \"gdTin\": \"47*****80\", // ИНН руководителя\n    \"gdPinfl\": \"301******12\", // ПИНФЛ руководителя\n    \"gdTelWork\": \"901234567\", // Номер рабочего телефона руководителя\n    \"gdTelHome\": \"+99847 *****0\", // Номер стационарного телефона руководителя\n    \"gdMobile\": null, // Номер мобильного телефона руководителя\n    \"gbFullName\": \"IVANOV IVAN IVANOVICH\", // Ф.И.О. главного бухгалтера\n    \"gbTin\": \"47*****80\", // ИНН главного бухгалтера\n    \"gbPinfl\": \"326*******589\", // ПИНФЛ главного бухгалтера\n    \"gbTelWork\": \"90*****\", // Номер рабочего телефона главного бухгалтера\n    \"gbTelHome\": \"+99853 *******07\", // Номер стационарного телефона главного бухгалтера\n    \"gbMobile\": null, // Номер мобильного телефона главного бухгалтера\n    \"nc1Code\": \"04403\", // Код СООГУ (Система обозначений органов государственного и хозяйственного управления)\n    \"nc1Name\": \"Ўзбекистон Республикаси Давлат аpхитектуpа ва қуpилиш қўмитаси\", // Наименование вышестоящей организации\n    \"nc2Code\": \"61110\", // (внутренний справочник)\n    \"nc2Name\": \"Умумқурилиш ташкилотлари.\", // (внутренний справочник)\n    \"nc3Code\": 144, // Форма собственности (Классификатор форм собственности)\n    \"nc3Name\": \"Очиқ акциядорлик жамиятлари мулки \", // Наименование формы собственности\n    \"nc4Code\": null, // (внутренний справочник)\n    \"nc4Name\": null, // (внутренний справочник)\n    \"nc5Code\": \"1726269\", // Код СОАТО района регистрации\n    \"nc5Name\": \"Мирзо-Улугбекский район\", // Наименование района регистрации\n    \"nc6Code\": 41201, // ОКЭД (Общегосударственный классификатор видов экономической деятельности)\n    \"nc6Name\": \"Turаr joy binolаrini qurish\", // Наименование вида деятельности\n    \"ns1Code\": 8, // Вид деятельности\n    \"ns1Name\": \"Суғурта\", // Направление вида деятельности (Вид деятельности)\n    \"ns2Code\": \"00425\", // МФО (Межфилиальный оборот)\n    \"ns2Name\": \"ТОШКЕНТ Ш., \\\"****-БАНК\\\" АТИБ ШАЙХОНТОХУР ФИЛИАЛИ\", // Наименование банка\n    \"ns3Code\": 167, // (внутренний справочник)\n    \"ns3Name\": \"Консорциум ва уюшмаларнинг тармоқлараро бирлашмаси\", // (внутренний справочник)\n    \"ns4Code\": 2, // Код типа налогоплательщика (Форма собственности)\n    \"ns4Name\": \"Аралаштирилган\", // Тип налогоплательщика (Форма собственности)\n    \"ns13Code\": 4, // Код активности (Состояние)\n    \"ns13Name\": \"Бошка худудга утказилган\", // Статус активности (Состояние)\n    \"na1Code\": 12, // Статус\n    \"na1Name\": \"Масъулияти чекланган жамият\", // Наименование статуса\n    \"account\": \"20210000100176992001\", // Расчётный счёт\n    \"dateTin\": \"792874800000\", // (внутренний справочник)\n    \"tinHead\": null, // (внутренний справочник)\n    \"headPinfl\": \"0\", // (внутренний справочник)\n    \"okpo\": \"3532944\", // Код ОКПО\n    \"mriCode\": 26, // Код налоговой инспекции (внутренний справочник)\n    \"taxRegime\": 6, // Налоговый режим (внутренний справочник)\n    \"stateCode\": 10, // Код активности\n    \"stateName\": \"Бошқа ҳудудга ўтказилган\", // Статус активности\n    \"criteriaAll\": 0, // Балл\n    \"criteriaType\": \"D\" // Общий рейтинг\n  },\n  \"id\": 11525459 // ID запроса\n}"
+            },
+            {
+              "name": "200 bad",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{i-hamkor}}/service/yurnp1/v1",
+                  "host": [
+                    "{{i-hamkor}}"
+                  ],
+                  "path": [
+                    "service",
+                    "yurnp1",
+                    "v1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": 416,\n  \"errors\": [\n    \"416 REQUESTED_RANGE_NOT_SATISFIABLE\",\n    \"Запрошенный диапазон не может быть удовлетворен [company_tin]\"\n  ],\n  \"errorCode\": \"INTERNAL_ERROR\",\n  \"result\": null\n}\n"
+            }
+          ]
+        },
+        {
+          "name": "{{i-hamkor}}/service/founder/v1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "// требуется отправить либо TIN либо PINFL и ОБЯЗАТЕЛЬНО вторым значение отправить пустое значение\r\n{ \r\n  \"lang\": \"uz\", // Язык (ru, uz)\r\n  \"tin\": \"301005025\", // если отправить TIN, придет Юрик, в котором физик является учредителем\r\n  \"pinfl\": \"30123456789012\" // если отправить PINFL, придет информация по учредителям юридического лица (используем)\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{i-hamkor}}/service/founder/v1",
+              "host": [
+                "{{i-hamkor}}"
+              ],
+              "path": [
+                "service",
+                "founder",
+                "v1"
+              ]
+            },
+            "description": "Метод возвращает либо Юридическое лицо, в котором физическое лицо является учредителем (pinfl). Либо Информацию по учредителям юридического лица (tin)."
+          },
+          "response": [
+            {
+              "name": "200 ok - Информация по учредителям юридического лица (используем)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{i-hamkor}}/service/founder/v1",
+                  "host": [
+                    "{{i-hamkor}}"
+                  ],
+                  "path": [
+                    "service",
+                    "founder",
+                    "v1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true, // Успешность\n  \"reason\": null, // Причина\n  \"data\": [ // Данные\n    {\n      \"tin\": \"301005025\", // ИНН\n      \"created\": \"09.05.2021 20:55:36\", // Дата регистрации\n      \"updated\": \"30.08.2024 01:03:34\", // Дата перерегистрации\n      \"name\": \"\\\"UZ-SEGANG SURXON\\\" MAS'ULIYATI CHEKLANGAN JAMIYAT\", // Полное наименование\n      \"shortName\": \"\\\"UZ-SEGANG SURXON\\\" MCHJ\", // Краткое наименование\n      \"opf\": 152, // Код организационно-правовой формы (ОПФ) субъекта\n      \"kfs\": 100, // Код субъекта согласно классификатору форм собственности (КФС)\n      \"oked\": \"01500\", // Код субъекта согласно общегосударственного классификатора видов экономической деятельности (ОКЭД)\n      \"soato\": 1722223, // Код субъекта согласно классификатору системы обозначений административно-территориальных образований (СОАТО)\n      \"soogu\": \"79994\", // Код субъекта согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"sooguRegistrator\": \"7294\", // Код регистрирующего органа согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"registrationDate\": \"10.11.2020\", // Дата регистрации субъекта\n      \"registrationNumber\": \"912653\", // Регистрационный номер субъекта (номер реестра)\n      \"reregistrationDate\": \"28.02.2023\", // Дата перерегистрации субъекта\n      \"status\": 0, // Состояние/статус\n      \"statusUpdated\": \"15.05.2024\", // Дата изменения состояния/статуса\n      \"liquidationDate\": null, // Дата прекращения деятельности/дата ликвидации субъекта (дата исключения из реестра)\n      \"liquidationReason\": null, // Причина прекращения деятельности/ликвидации субъекта (основание для исключения с рееестра)\n      \"taxMode\": 1, // Налоговый режим субъекта\n      \"vatNumber\": 322130123456, // Регистрационный код плательщика НДС субъекта\n      \"taxpayerType\": 2, // Тип налогоплательщика\n      \"businessType\": 1, // Тип предприятия\n      \"businessFund\": 1748656500, // Размер уставного фонда\n      \"businessFundCurrency\": \"860\", // Валюта уставного фонда\n      \"businessStructure\": 12, // Структура бизнеса\n      \"budgetSharedPercent\": 0,\n      \"opfDetail\": null, // Организационно-правовая форма (ОПФ) субъекта подробно\n      \"sooguDetail\": null, // Детали субъекта согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"statusDetail\": { // Статус субъекта подробно\n        \"code\": \"0\", // Код статуса субъекта\n        \"name\": \"Active with Tax Liabilities\", // Наименование статуса субъекта на английском языке\n        \"name_ru\": \"Действующее и имеющее налоговые обязательства\", // Наименование статуса субъекта на русском языке\n        \"name_uz_cyrl\": \"Фаолият кўрсатаётган ҳамда солиқ мажбуриятларига эга\", // Наименование статуса субъекта на узбекском языке кирилица\n        \"name_uz_latn\": \"Faoliyat ko'rsatayotgan hamda soliq majburiyatlariga ega bo'lgan\", // Наименование статуса субъекта на узбекском языке латиница\n        \"group\": \"ACTIVE\" // Группа\n      },\n      \"region\": { // Регион/область субъекта\n        \"code\": 1722, // Код региона субъекта\n        \"name\": \"Surkhandarya region\", // Наименование региона субъекта на английском языке\n        \"name_ru\": \"Сурхандарьинская область\", // Наименование региона субъекта на русском языке\n        \"name_uz_cyrl\": \"Сурхондарё вилояти\", // Наименование региона субъекта на русском языке кирилица\n        \"name_uz_latn\": \"Surxondaryo viloyati\", // Наименование региона субъекта на узбекском языке латиница\n        \"administrativeCenterCode\": null // Код административного центра\n      },\n      \"district\": { // Район субъекта\n        \"code\": 1722223, // Код района субъекта\n        \"name\": \"Sherabad region\", // Наименование района субъекта\n        \"name_ru\": \"Шерабадский район\", // Наименование района субъекта на русском языке\n        \"name_uz_cyrl\": \"Шеробод тумани\", // Наименование района субъекта на узбекском языке кирилица\n        \"name_uz_latn\": \"Sherobod tumani\", // Наименование района субъекта на узбекском языке латиница\n        \"administrativeCenterCode\": null, // Код административного центра\n        \"regionCode\": 1722223, // Код региона\n        \"region_id\": 22, // ID региона\n        \"regionId\": 22, // ID региона\n        \"districtId\": 13, // ID района\n        \"districts_id\": 13, // ID района\n        \"active\": null // Активность\n      },\n      \"businessStructureDetail\": { // Структура бизнеса подробно\n        \"code\": \"12\", // Код\n        \"name\": null, // Наименование\n        \"name_ru\": \"Общество с ограниченной ответственностью\", // Наименование на русском языке\n        \"name_uz_cyrl\": \"Масъулияти чекланган жамият\", // Наименование на узбекском языке кирилица\n        \"name_uz_latn\": \"Masʼuliyati cheklangan jamiyat\" // Наименование на узбекском языке латиница\n      },\n      \"okedDetail\": null, // Детали субъекта по общегосударственному классификатору видов экономической деятельности (ОКЭД) подробно\n      \"villageCode\": 5830, // Код махалли\n      \"villageName\": \"KATTABOGʻ\", // Наименование махалли\n      \"streetName\": \"QATOR TOL KO`CHASI, 39-UY\", // Наименование улицы (Полный адрес)\n      \"flat\": null, // Квартира\n      \"house\": null, // Дом\n      \"addressId\": \"4F0B020D415241D4B3F87DFC79B14DFE\", // ID адреса\n      \"statusType\": null, // Тип статуса\n      \"flagReason\": null, // Причина\n      \"vatReason\": null, // НДС причина\n      \"vatBeginDate\": \"02.12.2020 15:28:38\", // Дата начала НДС\n      \"vatFromDate\": \"10.11.2020 00:00:00\", // НДС с даты\n      \"vatStatus\": \"ACTIVE\", // Статус НДС\n      \"businessTypeDetail\": null, // Тип бизнеса подробно\n      \"taxRate\": 0, // Ставка налога\n      \"argosDetails\": null, // АГРОС подробно\n      \"activityTypes\": null, // Виды деятельности\n      \"linkedTin\": null, // Связанный ИНН\n      \"activeFromDate\": null, // Дата начала вида деятельности\n      \"cottonCluster\": false // Хлопковый кластер\n    },\n    {\n      \"tin\": \"987654321\", // ИНН\n      \"created\": \"09.05.2021 21:31:25\", // Дата регистрации\n      \"updated\": \"30.08.2024 01:02:49\", // Дата перерегистрации\n      \"name\": \"\\\"PALLET PRODUCTION\\\" MAS'ULIYATI CHEKLANGAN JAMIYAT\", // Полное наименование\n      \"shortName\": \"\\\"PALLET PRODUCTION\\\" MCHJ\", // Краткое наименование\n      \"opf\": 152, // Код организационно-правовой формы (ОПФ) субъекта\n      \"kfs\": 100, // Код субъекта согласно классификатору форм собственности (КФС)\n      \"oked\": \"16240\", // Код субъекта согласно общегосударственного классификатора видов экономической деятельности (ОКЭД)\n      \"soato\": 1735215, // Код субъекта согласно классификатору системы обозначений административно-территориальных образований (СОАТО)\n      \"soogu\": \"79994\", // Код субъекта согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"sooguRegistrator\": \"07294\", // Код регистрирующего органа согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"registrationDate\": \"05.05.2015\", // Дата регистрации субъекта\n      \"registrationNumber\": \"175\", // Регистрационный номер субъекта (номер реестра)\n      \"reregistrationDate\": \"26.08.2024\", // Дата перерегистрации субъекта\n      \"status\": 0, // Состояние/статус\n      \"statusUpdated\": null, // Дата изменения состояния/статуса\n      \"liquidationDate\": null, // Дата прекращения деятельности/дата ликвидации субъекта (дата исключения из реестра)\n      \"liquidationReason\": null, // Причина прекращения деятельности/ликвидации субъекта (основание для исключения с рееестра)\n      \"taxMode\": 1, // Налоговый режим субъекта\n      \"vatNumber\": 335120123456, // Регистрационный код плательщика НДС субъекта\n      \"taxpayerType\": 2, // Тип налогоплательщика\n      \"businessType\": 1, // Тип предприятия\n      \"businessFund\": 6000000, // Размер уставного фонда\n      \"businessFundCurrency\": \"860\", // Валюта уставного фонда\n      \"businessStructure\": 12, // Структура бизнеса\n      \"budgetSharedPercent\": 0,\n      \"opfDetail\": null, // Организационно-правовая форма (ОПФ) субъекта подробно\n      \"sooguDetail\": null, // Детали субъекта согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"statusDetail\": { // Статус субъекта подробно\n        \"code\": \"0\", // Код статуса субъекта\n        \"name\": \"Active with Tax Liabilities\", // Наименование статуса субъекта на английском языке\n        \"name_ru\": \"Действующее и имеющее налоговые обязательства\", // Наименование статуса субъекта на русском языке\n        \"name_uz_cyrl\": \"Фаолият кўрсатаётган ҳамда солиқ мажбуриятларига эга\", // Наименование статуса субъекта на узбекском языке кирилица\n        \"name_uz_latn\": \"Faoliyat ko'rsatayotgan hamda soliq majburiyatlariga ega bo'lgan\", // Наименование статуса субъекта на узбекском языке латиница\n        \"group\": \"ACTIVE\" // Группа\n      },\n      \"region\": { // Регион/область субъекта\n        \"code\": 1735, // Код региона субъекта\n        \"name\": \"Republic of Karakalpakstan\", // Наименование региона субъекта на английском языке\n        \"name_ru\": \"Республика Каракалпакстан\", // Наименование региона субъекта на русском языке\n        \"name_uz_cyrl\": \"Қорақалпоғистон Республикаси\", // Наименование региона субъекта на русском языке кирилица\n        \"name_uz_latn\": \"Qoraqalpog'iston Respublikasi\", // Наименование региона субъекта на узбекском языке латиница\n        \"administrativeCenterCode\": null // Код административного центра\n      },\n      \"district\": { // Район субъекта\n        \"code\": 1735215, // Код района субъекта\n        \"name\": \"Kungradsky district\", // Наименование района субъекта\n        \"name_ru\": \"Кунградский район\", // Наименование района субъекта на русском языке\n        \"name_uz_cyrl\": \"Қўнғирот тумани\", // Наименование района субъекта на узбекском языке кирилица\n        \"name_uz_latn\": \"Qo'ng'irot tumani\", // Наименование района субъекта на узбекском языке латиница\n        \"administrativeCenterCode\": null, // Код административного центра\n        \"regionCode\": 1735215, // Код региона\n        \"region_id\": 35, // ID региона\n        \"regionId\": 35, // ID региона\n        \"districtId\": 12, // ID района\n        \"districts_id\": 12, // ID района\n        \"active\": null // Активность\n      },\n      \"businessStructureDetail\": { // Структура бизнеса подробно\n        \"code\": \"12\", // Код\n        \"name\": null, // Наименование\n        \"name_ru\": \"Общество с ограниченной ответственностью\", // Наименование на русском языке\n        \"name_uz_cyrl\": \"Масъулияти чекланган жамият\", // Наименование на узбекском языке кирилица\n        \"name_uz_latn\": \"Masʼuliyati cheklangan jamiyat\" // Наименование на узбекском языке латиница\n      },\n      \"okedDetail\": null, // Детали субъекта по общегосударственному классификатору видов экономической деятельности (ОКЭД) подробно\n      \"villageCode\": 156, // Код махалли\n      \"villageName\": \"QONʻIʻRAT\", // Наименование махалли\n      \"streetName\": \"Qonirat MFY,  To'legen Aybergenov ko'chasi , 50-uy\", // Наименование улицы (Полный адрес)\n      \"flat\": null, // Квартира\n      \"house\": null, // Дом\n      \"addressId\": \"EC648081E0104740B0BA7D111271E0DE\", // ID адреса\n      \"statusType\": null, // Тип статуса\n      \"flagReason\": null, // Причина\n      \"vatReason\": null, // НДС причина\n      \"vatBeginDate\": \"02.12.2018 17:43:45\", // Дата начала НДС\n      \"vatFromDate\": \"01.01.2019 00:00:00\", // НДС с даты\n      \"vatStatus\": \"ACTIVE\", // Статус НДС\n      \"businessTypeDetail\": null, // Тип бизнеса подробно\n      \"taxRate\": 0, // Ставка налога\n      \"argosDetails\": null, // АГРОС подробно\n      \"activityTypes\": null, // Виды деятельности\n      \"linkedTin\": null, // Связанный ИНН\n      \"activeFromDate\": null, // Дата начала вида деятельности\n      \"cottonCluster\": false // Хлопковый кластер\n    }\n  ],\n  \"id\": \"18039043\" // ID ответа на запрос\n}"
+            },
+            {
+              "name": "200 bad",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{i-hamkor}}/service/founder/v1",
+                  "host": [
+                    "{{i-hamkor}}"
+                  ],
+                  "path": [
+                    "service",
+                    "founder",
+                    "v1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"reason\": \" pinfl элемент узунлиги 14 хонали бўлиши лозим;\",\n  \"data\": null,\n  \"id\": 14381465\n}"
+            },
+            {
+              "name": "200 ok - Юрик, в котором физик является учредителем",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{i-hamkor}}/service/founder/v1",
+                  "host": [
+                    "{{i-hamkor}}"
+                  ],
+                  "path": [
+                    "service",
+                    "founder",
+                    "v1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true, // Успешность\n  \"reason\": null, // Причина\n  \"data\": [ // Данные\n    {\n      \"tin\": \"123456789\", // ИНН\n      \"created\": \"09.05.2021 20:55:36\", // Дата регистрации\n      \"updated\": \"30.08.2024 01:03:34\", // Дата перерегистрации\n      \"name\": \"\\\"UZ-SEGANG SURXON\\\" MAS'ULIYATI CHEKLANGAN JAMIYAT\", // Полное наименование\n      \"shortName\": \"\\\"UZ-SEGANG SURXON\\\" MCHJ\", // Краткое наименование\n      \"opf\": 152, // Код организационно-правовой формы (ОПФ) субъекта\n      \"kfs\": 100, // Код субъекта согласно классификатору форм собственности (КФС)\n      \"oked\": \"01500\", // Код субъекта согласно общегосударственного классификатора видов экономической деятельности (ОКЭД)\n      \"soato\": 1722223, // Код субъекта согласно классификатору системы обозначений административно-территориальных образований (СОАТО)\n      \"soogu\": \"79994\", // Код субъекта согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"sooguRegistrator\": \"7294\", // Код регистрирующего органа согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"registrationDate\": \"10.11.2020\", // Дата регистрации субъекта\n      \"registrationNumber\": \"912653\", // Регистрационный номер субъекта (номер реестра)\n      \"reregistrationDate\": \"28.02.2023\", // Дата перерегистрации субъекта\n      \"status\": 0, // Состояние/статус\n      \"statusUpdated\": \"15.05.2024\", // Дата изменения состояния/статуса\n      \"liquidationDate\": null, // Дата прекращения деятельности/дата ликвидации субъекта (дата исключения из реестра)\n      \"liquidationReason\": null, // Причина прекращения деятельности/ликвидации субъекта (основание для исключения с рееестра)\n      \"taxMode\": 1, // Налоговый режим субъекта\n      \"vatNumber\": 322130123456, // Регистрационный код плательщика НДС субъекта\n      \"taxpayerType\": 2, // Тип налогоплательщика\n      \"businessType\": 1, // Тип предприятия\n      \"businessFund\": 1748656500, // Размер уставного фонда\n      \"businessFundCurrency\": \"860\", // Валюта уставного фонда\n      \"businessStructure\": 12, // Структура бизнеса\n      \"budgetSharedPercent\": 0,\n      \"opfDetail\": null, // Организационно-правовая форма (ОПФ) субъекта подробно\n      \"sooguDetail\": null, // Детали субъекта согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"statusDetail\": { // Статус субъекта подробно\n        \"code\": \"0\", // Код статуса субъекта\n        \"name\": \"Active with Tax Liabilities\", // Наименование статуса субъекта на английском языке\n        \"name_ru\": \"Действующее и имеющее налоговые обязательства\", // Наименование статуса субъекта на русском языке\n        \"name_uz_cyrl\": \"Фаолият кўрсатаётган ҳамда солиқ мажбуриятларига эга\", // Наименование статуса субъекта на узбекском языке кирилица\n        \"name_uz_latn\": \"Faoliyat ko'rsatayotgan hamda soliq majburiyatlariga ega bo'lgan\", // Наименование статуса субъекта на узбекском языке латиница\n        \"group\": \"ACTIVE\" // Группа\n      },\n      \"region\": { // Регион/область субъекта\n        \"code\": 1722, // Код региона субъекта\n        \"name\": \"Surkhandarya region\", // Наименование региона субъекта на английском языке\n        \"name_ru\": \"Сурхандарьинская область\", // Наименование региона субъекта на русском языке\n        \"name_uz_cyrl\": \"Сурхондарё вилояти\", // Наименование региона субъекта на русском языке кирилица\n        \"name_uz_latn\": \"Surxondaryo viloyati\", // Наименование региона субъекта на узбекском языке латиница\n        \"administrativeCenterCode\": null // Код административного центра\n      },\n      \"district\": { // Район субъекта\n        \"code\": 1722223, // Код района субъекта\n        \"name\": \"Sherabad region\", // Наименование района субъекта\n        \"name_ru\": \"Шерабадский район\", // Наименование района субъекта на русском языке\n        \"name_uz_cyrl\": \"Шеробод тумани\", // Наименование района субъекта на узбекском языке кирилица\n        \"name_uz_latn\": \"Sherobod tumani\", // Наименование района субъекта на узбекском языке латиница\n        \"administrativeCenterCode\": null, // Код административного центра\n        \"regionCode\": 1722223, // Код региона\n        \"region_id\": 22, // ID региона\n        \"regionId\": 22, // ID региона\n        \"districtId\": 13, // ID района\n        \"districts_id\": 13, // ID района\n        \"active\": null // Активность\n      },\n      \"businessStructureDetail\": { // Структура бизнеса подробно\n        \"code\": \"12\", // Код\n        \"name\": null, // Наименование\n        \"name_ru\": \"Общество с ограниченной ответственностью\", // Наименование на русском языке\n        \"name_uz_cyrl\": \"Масъулияти чекланган жамият\", // Наименование на узбекском языке кирилица\n        \"name_uz_latn\": \"Masʼuliyati cheklangan jamiyat\" // Наименование на узбекском языке латиница\n      },\n      \"okedDetail\": null, // Детали субъекта по общегосударственному классификатору видов экономической деятельности (ОКЭД) подробно\n      \"villageCode\": 5830, // Код махалли\n      \"villageName\": \"KATTABOGʻ\", // Наименование махалли\n      \"streetName\": \"QATOR TOL KO`CHASI, 39-UY\", // Наименование улицы (Полный адрес)\n      \"flat\": null, // Квартира\n      \"house\": null, // Дом\n      \"addressId\": \"4F0B020D415241D4B3F87DFC79B14DFE\", // ID адреса\n      \"statusType\": null, // Тип статуса\n      \"flagReason\": null, // Причина\n      \"vatReason\": null, // НДС причина\n      \"vatBeginDate\": \"02.12.2020 15:28:38\", // Дата начала НДС\n      \"vatFromDate\": \"10.11.2020 00:00:00\", // НДС с даты\n      \"vatStatus\": \"ACTIVE\", // Статус НДС\n      \"businessTypeDetail\": null, // Тип бизнеса подробно\n      \"taxRate\": 0, // Ставка налога\n      \"argosDetails\": null, // АГРОС подробно\n      \"activityTypes\": null, // Виды деятельности\n      \"linkedTin\": null, // Связанный ИНН\n      \"activeFromDate\": null, // Дата начала вида деятельности\n      \"cottonCluster\": false // Хлопковый кластер\n    },\n    {\n      \"tin\": \"987654321\", // ИНН\n      \"created\": \"09.05.2021 21:31:25\", // Дата регистрации\n      \"updated\": \"30.08.2024 01:02:49\", // Дата перерегистрации\n      \"name\": \"\\\"PALLET PRODUCTION\\\" MAS'ULIYATI CHEKLANGAN JAMIYAT\", // Полное наименование\n      \"shortName\": \"\\\"PALLET PRODUCTION\\\" MCHJ\", // Краткое наименование\n      \"opf\": 152, // Код организационно-правовой формы (ОПФ) субъекта\n      \"kfs\": 100, // Код субъекта согласно классификатору форм собственности (КФС)\n      \"oked\": \"16240\", // Код субъекта согласно общегосударственного классификатора видов экономической деятельности (ОКЭД)\n      \"soato\": 1735215, // Код субъекта согласно классификатору системы обозначений административно-территориальных образований (СОАТО)\n      \"soogu\": \"79994\", // Код субъекта согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"sooguRegistrator\": \"07294\", // Код регистрирующего органа согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"registrationDate\": \"05.05.2015\", // Дата регистрации субъекта\n      \"registrationNumber\": \"175\", // Регистрационный номер субъекта (номер реестра)\n      \"reregistrationDate\": \"26.08.2024\", // Дата перерегистрации субъекта\n      \"status\": 0, // Состояние/статус\n      \"statusUpdated\": null, // Дата изменения состояния/статуса\n      \"liquidationDate\": null, // Дата прекращения деятельности/дата ликвидации субъекта (дата исключения из реестра)\n      \"liquidationReason\": null, // Причина прекращения деятельности/ликвидации субъекта (основание для исключения с рееестра)\n      \"taxMode\": 1, // Налоговый режим субъекта\n      \"vatNumber\": 335120123456, // Регистрационный код плательщика НДС субъекта\n      \"taxpayerType\": 2, // Тип налогоплательщика\n      \"businessType\": 1, // Тип предприятия\n      \"businessFund\": 6000000, // Размер уставного фонда\n      \"businessFundCurrency\": \"860\", // Валюта уставного фонда\n      \"businessStructure\": 12, // Структура бизнеса\n      \"budgetSharedPercent\": 0,\n      \"opfDetail\": null, // Организационно-правовая форма (ОПФ) субъекта подробно\n      \"sooguDetail\": null, // Детали субъекта согласно системы обозначения органов государственного и хозяйственного управления (СООГУ)\n      \"statusDetail\": { // Статус субъекта подробно\n        \"code\": \"0\", // Код статуса субъекта\n        \"name\": \"Active with Tax Liabilities\", // Наименование статуса субъекта на английском языке\n        \"name_ru\": \"Действующее и имеющее налоговые обязательства\", // Наименование статуса субъекта на русском языке\n        \"name_uz_cyrl\": \"Фаолият кўрсатаётган ҳамда солиқ мажбуриятларига эга\", // Наименование статуса субъекта на узбекском языке кирилица\n        \"name_uz_latn\": \"Faoliyat ko'rsatayotgan hamda soliq majburiyatlariga ega bo'lgan\", // Наименование статуса субъекта на узбекском языке латиница\n        \"group\": \"ACTIVE\" // Группа\n      },\n      \"region\": { // Регион/область субъекта\n        \"code\": 1735, // Код региона субъекта\n        \"name\": \"Republic of Karakalpakstan\", // Наименование региона субъекта на английском языке\n        \"name_ru\": \"Республика Каракалпакстан\", // Наименование региона субъекта на русском языке\n        \"name_uz_cyrl\": \"Қорақалпоғистон Республикаси\", // Наименование региона субъекта на русском языке кирилица\n        \"name_uz_latn\": \"Qoraqalpog'iston Respublikasi\", // Наименование региона субъекта на узбекском языке латиница\n        \"administrativeCenterCode\": null // Код административного центра\n      },\n      \"district\": { // Район субъекта\n        \"code\": 1735215, // Код района субъекта\n        \"name\": \"Kungradsky district\", // Наименование района субъекта\n        \"name_ru\": \"Кунградский район\", // Наименование района субъекта на русском языке\n        \"name_uz_cyrl\": \"Қўнғирот тумани\", // Наименование района субъекта на узбекском языке кирилица\n        \"name_uz_latn\": \"Qo'ng'irot tumani\", // Наименование района субъекта на узбекском языке латиница\n        \"administrativeCenterCode\": null, // Код административного центра\n        \"regionCode\": 1735215, // Код региона\n        \"region_id\": 35, // ID региона\n        \"regionId\": 35, // ID региона\n        \"districtId\": 12, // ID района\n        \"districts_id\": 12, // ID района\n        \"active\": null // Активность\n      },\n      \"businessStructureDetail\": { // Структура бизнеса подробно\n        \"code\": \"12\", // Код\n        \"name\": null, // Наименование\n        \"name_ru\": \"Общество с ограниченной ответственностью\", // Наименование на русском языке\n        \"name_uz_cyrl\": \"Масъулияти чекланган жамият\", // Наименование на узбекском языке кирилица\n        \"name_uz_latn\": \"Masʼuliyati cheklangan jamiyat\" // Наименование на узбекском языке латиница\n      },\n      \"okedDetail\": null, // Детали субъекта по общегосударственному классификатору видов экономической деятельности (ОКЭД) подробно\n      \"villageCode\": 156, // Код махалли\n      \"villageName\": \"QONʻIʻRAT\", // Наименование махалли\n      \"streetName\": \"Qonirat MFY,  To'legen Aybergenov ko'chasi , 50-uy\", // Наименование улицы (Полный адрес)\n      \"flat\": null, // Квартира\n      \"house\": null, // Дом\n      \"addressId\": \"EC648081E0104740B0BA7D111271E0DE\", // ID адреса\n      \"statusType\": null, // Тип статуса\n      \"flagReason\": null, // Причина\n      \"vatReason\": null, // НДС причина\n      \"vatBeginDate\": \"02.12.2018 17:43:45\", // Дата начала НДС\n      \"vatFromDate\": \"01.01.2019 00:00:00\", // НДС с даты\n      \"vatStatus\": \"ACTIVE\", // Статус НДС\n      \"businessTypeDetail\": null, // Тип бизнеса подробно\n      \"taxRate\": 0, // Ставка налога\n      \"argosDetails\": null, // АГРОС подробно\n      \"activityTypes\": null, // Виды деятельности\n      \"linkedTin\": null, // Связанный ИНН\n      \"activeFromDate\": null, // Дата начала вида деятельности\n      \"cottonCluster\": false // Хлопковый кластер\n    }\n  ],\n  \"id\": \"18039043\" // ID ответа на запрос\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "unknown",
+      "item": [
+        {
+          "name": "/accounts/v1/face/confirm/internal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinfl\": \"30123456789012\",  // ПИНФЛ клиента (14 цифр)\n  \"phone\": \"+998910203344\"  // Номер телефона клиента в международном формате\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{unknown}}/accounts/v1/face/confirm/internal",
+              "host": [
+                "{{unknown}}"
+              ],
+              "path": [
+                "accounts",
+                "v1",
+                "face",
+                "confirm",
+                "internal"
+              ]
+            },
+            "description": "Проверяет через ТАФ (сверка с базой мобильных операторов), что указанный номер телефона действительно принадлежит данному ПИНФЛ. Вызывается после ввода номера телефона клиентом, перед отправкой OTP.\n"
+          },
+          "response": [
+            {
+              "name": "200 – Номер принадлежит ПИНФЛ — можно отправлять OTP",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/check-phone-owning2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "check-phone-owning2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": 3000,\n  \"owner\": true\n}"
+            },
+            {
+              "name": "200 – Номер не найден в базе оператора",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/check-phone-owning2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "check-phone-owning2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": 3020,\n  \"owner\": false\n}"
+            },
+            {
+              "name": "200 – Номер принадлежит другому ПИНФЛ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/check-phone-owning2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "check-phone-owning2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": 3030,\n  \"owner\": false\n}"
+            },
+            {
+              "name": "200 – ПИНФЛ не найден в базе оператора",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/check-phone-owning2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "check-phone-owning2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": 3031,\n  \"owner\": false\n}"
+            },
+            {
+              "name": "200 – Ошибка на стороне оператора",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/check-phone-owning2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "check-phone-owning2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": 3050,\n  \"owner\": false\n}"
+            },
+            {
+              "name": "400 – Некорректные входные данные",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/check-phone-owning2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "check-phone-owning2"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"pinfl or phone is invalid\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pdf",
+      "item": [
+        {
+          "name": "/document-forms/{template_id}",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Lang",
+                "value": "ru-RU",
+                "description": "Локаль для интернационализации"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"isNewClient\": true,\r\n  \"clientName\": \"ООО 'TEST'\", // Наименование юридического лица или индивидуального предпринимателя\r\n  \"clientTin\": \"30123456789012\", // ИНН юридического лица или ПИНФЛ Индивидуального предпринимателя\r\n  \"clientAddress\": \"г. Ташкент, ул. Пушкина, 1\", // Юридический адрес юридического лица или индивидуального предпринимателя\r\n  \"workPhone\": \"+99871 123-45-67\",\r\n  \"mobilePhone\": \"+998910203344\",\r\n  \"accountFormOtherText\": \"\",\r\n  \"accessCode\": \"TEST2024\",\r\n  \"firstSigner\": \"Иванов Иван Иванович\",\r\n  \"secondSigner\": \"Иванов Иван Иванович\",\r\n  \"managerName\": \"Сидоров С.С.\",\r\n  \"dtCreate\" : \"29.06.2026\", // Время регистрации клиента\r\n  \"currencySum\": true,\r\n  \"currencyUsd\": true,\r\n  \"currencyEur\": false,\r\n  \"currencyRub\": true,\r\n  \"currencyOther\": \"\",\r\n  \"uzcardTerminal\": 0,\r\n  \"humoTerminal\": 0,\r\n  \"martaTerminal\": 0,\r\n  \"qrCode\": 0,\r\n  \"kpk\": 0,\r\n  \"salary\": 0,\r\n  \"beneficiary1Name\": \"Иванов Иван Иванович\",\r\n  \"beneficiary1Birth\": \"31.10.1985\",\r\n  \"beneficiary1Citizen\": \"Узбекистан\",\r\n  \"beneficiary1Passport\": \"AA1234567\",\r\n  \"pep1Name\": \"\",\r\n  \"pep1Citizen\": \"\",\r\n  \"pep1Position\": \"\",\r\n  \"pep1Relation\": \"\",\r\n  \"turnoverSum\": \"50000000\",\r\n  \"turnoverUsd\": \"5000\",\r\n  \"turnoverEur\": \"\",\r\n  \"turnoverRub\": \"\",\r\n  \"turnoverOther\": \"\",\r\n  \"finTypeDebit\": \"finTypeDebit\",\r\n  \"finTypeCredit\": \"finTypeCredit\",\r\n  \"incomingFundsType\": \"\",\r\n  \"outgoingFundsType\": \"\",\r\n  \"tariffLutf\": false,\r\n  \"tariffChegarasiz\": true,\r\n  \"tariffBarqaror\": false,\r\n  \"tariffYuksalish\": false,\r\n  \"otherTerms\": null,\r\n  \"internetBanking\": false,\r\n  \"mobileBanking\": false,\r\n  \"smsBanking\": false,\r\n  \"smsBankingFio1\": \"\",\r\n  \"smsBankingType1\": \"\",\r\n  \"smsBankingPhone1\": \"\",\r\n  \"smsBankingFio2\": \"\",\r\n  \"smsBankingType2\": \"\",\r\n  \"smsBankingPhone2\": \"\",\r\n  \"smsBankingFio3\": \"\",\r\n  \"smsBankingType3\": \"\",\r\n  \"smsBankingPhone3\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{reports}}/document-forms/{template_id}?format=pdf",
+              "host": [
+                "{{reports}}"
+              ],
+              "path": [
+                "document-forms",
+                "{template_id}"
+              ],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "pdf"
+                }
+              ]
+            },
+            "description": "Формирует документ по переданным параметрам и сразу возвращает файл. Подходит для документов-форм (заявления, договоры), которые не требуют загрузки данных из внешних источников.\n"
+          },
+          "response": [
+            {
+              "name": "200 – Файл документа",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-Lang",
+                    "value": "ru-RU",
+                    "description": "Локаль для интернационализации"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{reports}}/v1/document-forms/{template_id}?format=pdf",
+                  "host": [
+                    "{{reports}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "document-forms",
+                    "{template_id}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "cookie": [],
+              "body": "\"<binary>\""
+            },
+            {
+              "name": "200 – Файл документа",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-Lang",
+                    "value": "ru-RU",
+                    "description": "Локаль для интернационализации"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{reports}}/v1/document-forms/{template_id}?format=pdf",
+                  "host": [
+                    "{{reports}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "document-forms",
+                    "{template_id}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                }
+              ],
+              "cookie": [],
+              "body": "\"<binary>\""
+            },
+            {
+              "name": "200 – Файл документа",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-Lang",
+                    "value": "ru-RU",
+                    "description": "Локаль для интернационализации"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{reports}}/v1/document-forms/{template_id}?format=pdf",
+                  "host": [
+                    "{{reports}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "document-forms",
+                    "{template_id}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/html"
+                }
+              ],
+              "cookie": [],
+              "body": "\"<binary>\""
+            },
+            {
+              "name": "400 – Ошибка валидации",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-Lang",
+                    "value": "ru-RU",
+                    "description": "Локаль для интернационализации"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{reports}}/v1/document-forms/{template_id}?format=pdf",
+                  "host": [
+                    "{{reports}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "document-forms",
+                    "{template_id}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,  // Признак успешности операции\n  \"result\": {\n    \"code\": 0,\n    \"message\": \"message\",\n    \"data\": {},  // Данные ответа (полезная нагрузка)\n    \"actionType\": \"SUCCESS\",  // enum: SUCCESS, ERROR, REFRESH_TOKEN, LOGOUT, PERMISSION_DENIED\n    \"audit\": \"audit\",  // Идентификатор аудита/трейса\n    \"details\": {}\n  },\n  \"timestamp\": 0  // Метка времени в секундах\n}"
+            },
+            {
+              "name": "404 – Шаблон не найден",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-Lang",
+                    "value": "ru-RU",
+                    "description": "Локаль для интернационализации"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{reports}}/v1/document-forms/{template_id}?format=pdf",
+                  "host": [
+                    "{{reports}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "document-forms",
+                    "{template_id}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "pdf"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,  // Признак успешности операции\n  \"result\": {\n    \"code\": 0,\n    \"message\": \"message\",\n    \"data\": {},  // Данные ответа (полезная нагрузка)\n    \"actionType\": \"SUCCESS\",  // enum: SUCCESS, ERROR, REFRESH_TOKEN, LOGOUT, PERMISSION_DENIED\n    \"audit\": \"audit\",  // Идентификатор аудита/трейса\n    \"details\": {}\n  },\n  \"timestamp\": 0  // Метка времени в секундах\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

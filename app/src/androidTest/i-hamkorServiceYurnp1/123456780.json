@@ -1,0 +1,13 @@
+
+{
+  "httpStatusCode": "504",
+  "responseType": "json",
+  "responseBody": {
+  "code": 504,
+  "errors": [
+    "504 Gateway Timeout"
+  ],
+  "errorCode": "INTERNAL_ERROR",
+  "result": null
+}
+}

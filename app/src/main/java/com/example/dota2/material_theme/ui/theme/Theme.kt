@@ -9,11 +9,15 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val lightScheme = lightColorScheme(
@@ -115,10 +119,18 @@ fun AppTheme(
         )
     }
 
-    MaterialTheme(
-        colorScheme = if (darkTheme) darkScheme else lightScheme,
-        content = content
+    val fixedDensity = Density(
+        density = LocalDensity.current.density,
+        fontScale = 1f
     )
+
+    CompositionLocalProvider(LocalDensity provides fixedDensity) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            content = content
+        )
+    }
+
 }
 
 enum class ThemeMode {
